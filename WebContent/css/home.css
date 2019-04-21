@@ -1,0 +1,61 @@
+/********************************************************************************************/
+/********************************************************************************************/
+/********************************************************************************************/
+/********************************************************************************************/
+/*********************************************style*****************************************/
+/*reset style*/
+a,span,label,
+body,div,p,ol,ul,li,
+h1,h2,h3,h4,h5,h6,
+form,input {
+	padding: 0;
+	margin: 0;
+	font-family: 'Simsun' 'microsoft Yahei';
+}
+body {
+	font-size: 12px;
+	color: #666666;
+	font-family: 'simsun';
+}
+img {
+	margin-bottom: -5px;
+	border: none 0;
+}
+a {
+	text-decoration: none;
+}
+li {
+	list-style: none; 
+}
+em {
+	font-style: normal;
+}
+
+/* 字体size*/
+.f12 { font-size: 12px; font-family: 'Simsun'}
+.f14 { font-size: 14px; font-family: 'Simsun'}
+.f16 { font-size: 16px; font-family: 'microsoft Yahei'}
+.f18 { font-size: 18px; font-family: 'microsoft Yahei'}
+.f20 { font-size: 20px; font-family: 'microsoft Yahei'}
+.f22 { font-size: 22px; font-family: 'microsoft Yahei'}
+.f24 { font-size: 24px; font-family: 'microsoft Yahei'}
+.f26 { font-size: 26px; font-family: 'microsoft Yahei'}
+.f28 { font-size: 28px; font-family: 'microsoft Yahei'}
+.f30 { font-size: 30px; font-family: 'microsoft Yahei'}
+
+/*字体color*/
+.white { color: white;}
+.red { color: red;}
+.c-999999 { color: #999999;}
+.c-c40000 { color: #c40000;}
+.c-333333 { color: #333333;}
+.c-cc3333 { color: #cc3333;}
+.c-333333 { color: #333333;}
+.c-666666 { color: #666666;}
+/*字体weight*/
+.normal { font-weight: normal;}
+.bold { font-weight: bold;}
+
+/*背景background-color*/
+.bg-white { background-color: white;}
+.bg-c40000 { background-color: #c40000;}

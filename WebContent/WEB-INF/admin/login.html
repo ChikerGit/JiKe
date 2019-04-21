@@ -1,0 +1,317 @@
+<#assign ctx=request.contextPath>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="${ctx}/assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="${ctx}/assets/img/logo.png"> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Login Page</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <!--     Fonts and icons     -->
+    <!-- CSS Files -->
+    <link href="${ctx}/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="${ctx}/assets/css/now-ui-kit.css?v=1.1.0" rel="stylesheet" />
+    <link rel="stylesheet" href="${ctx}/css/home.css"/>
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="${ctx}/assets/css/demo.css" rel="stylesheet" />
+    <!-- Canonical SEO -->
+    <link rel="canonical" href="" />
+    <!--  Social tags      -->
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+</head>
+
+<body class="login-page sidebar-collapse">
+    <!-- Navbar -->
+    <!-- <nav class="navbar navbar-expand-lg bg-primary fixed-top navbar-transparent " color-on-scroll="400">
+        <div class="container">
+            <div class="dropdown button-dropdown">
+                <a href="#pablo" class="dropdown-toggle" id="navbarDropdown" data-toggle="dropdown">
+                    <span class="button-bar"></span>
+                    <span class="button-bar"></span>
+                    <span class="button-bar"></span>
+                </a> -->
+                <!-- <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-header">Dropdown header</a>
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Separated link</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">One more separated link</a>
+                </div>
+            </div>
+            <div class="navbar-translate">
+                <a class="navbar-brand" href="#" rel="tooltip" data-placement="bottom">
+                    Now Ui Kit
+                </a>
+                <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-bar bar1"></span>
+                    <span class="navbar-toggler-bar bar2"></span>
+                    <span class="navbar-toggler-bar bar3"></span>
+                </button>
+            </div> -->
+            <!-- <div class="collapse navbar-collapse justify-content-end" data-nav-image="assets/img/blurred-image-1.jpg">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Back to Kit</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#/issues">Have an issue?</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" rel="tooltip" title="Follow us on Twitter" data-placement="bottom" href="#CreativeTim" target="_blank">
+                            <i class="fa fa-twitter"></i>
+                            <p class="d-lg-none d-xl-none">Twitter</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" rel="tooltip" title="Like us on Facebook" data-placement="bottom" href="#CreativeTim" target="_blank">
+                            <i class="fa fa-facebook-square"></i>
+                            <p class="d-lg-none d-xl-none">Facebook</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" rel="tooltip" title="Follow us on Instagram" data-placement="bottom" href="#" target="_blank">
+                            <i class="fa fa-instagram"></i>
+                            <p class="d-lg-none d-xl-none">Instagram</p>
+                        </a>
+                    </li>
+                </ul>
+            </div> -->
+        </div>
+    </nav>
+    <!-- End Navbar -->
+   
+    <div class="page-header" filter-color="orange">
+        <div class="page-header-image" style="background-image:url(${ctx}/assets/img/login1.jpg)"></div>
+        <div class="container">
+            <div class="col-md-4 content-center">
+                <div class="card card-login card-plain">
+                    <form class="form" method="post" action="">
+                        <div class="header header-primary text-center">
+                            <div class="logo-container">
+                               <!--  <img src="${ctx}/assets/img/now-logo.png" alt=""> -->
+                            </div>
+                        </div>
+                        <div class="content">
+                         <p style="color: red" id="tip">${tip!""}</p>
+                            <div class="input-group form-group-no-border input-lg">
+                                <span class="input-group-addon">
+                                    <i class="now-ui-icons users_circle-08"></i>
+                                </span>
+                                <input type="text" id="userId" class="form-control" placeholder="账号" name="userId" >
+                            </div>
+                            <div class="input-group form-group-no-border input-lg">
+                                <span class="input-group-addon">
+                                    <i class="now-ui-icons text_caps-small"></i>
+                                </span>
+                                <input type="password" id="passWord" name="pwd" class="form-control" placeholder="密码"/>
+                            </div>
+                            
+                            <div class="input-group form-group-no-border input-lg">
+                                <span class="input-group-addon">
+                                    <!-- <i class="">code：</i> -->
+                                </span>
+                                <input type="text" id="codeInput" name="code" class="form-control" placeholder="验证码"/>
+                           
+                                <span class="input-group-addon">
+            
+                                </span>
+                                <img src="${ctx}/customer/autoCode" id="autoCode" onclick="change();" alt="验证码" class="form-control" />
+                            </div>
+                        </div>
+					   
+					
+					  <p class="clear p4">
+						<label class="left">
+							<input type="checkbox"/ id="autoLogin"><em class="c-999999">记住密码</em>
+						</label>
+						<!-- <a class="right" href="#">忘记密码</a> -->
+					</p>  
+					
+					<div class="footer text-center">
+                            <input type="button"  id="loginBtn" class="btn btn-primary btn-round btn-lg btn-block" value="登录">
+                            <!-- <input type="button"  style="background-color: white;color: red"  id="registerBtn" class="btn btn-primary btn-round btn-lg btn-block"  value="注册"> -->
+                        </div>
+                      <!--   <div class="pull-left">
+                            <h6>
+                                <a href="register.html" class="link">Create Account</a>
+                            </h6>
+                        </div>
+                        <div class="pull-right">
+                            <h6>
+                                <a href="#pablo" class="link">Need Help?</a>
+                            </h6>
+                        </div> -->
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- <footer class="footer">
+            <div class="container">
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="#">
+                                Creative Tim
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                About Us
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Blog
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                MIT License
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="copyright">
+                    &copy;
+                    <script>
+                        document.write(new Date().getFullYear())
+                    </script>, Designed by Invision. Coded by Creative Tim.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a>
+                </div>
+            </div>
+        </footer> -->
+    </div>
+</body>
+<!--   Core JS Files   -->
+<script src="${ctx}/assets/js/core/jquery.3.2.1.min.js" type="text/javascript"></script>
+<script src="${ctx}/assets/js/core/popper.min.js" type="text/javascript"></script>
+<script src="${ctx}/assets/js/core/bootstrap.min.js" type="text/javascript"></script>
+<!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
+<script src="${ctx}/assets/js/plugins/bootstrap-switch.js"></script>
+<!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+<script src="${ctx}/assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
+<!--  Plugin for the DatePicker, full documentation here: https://github.com/uxsolutions/bootstrap-datepicker -->
+<script src="${ctx}/assets/js/plugins/bootstrap-datepicker.js" type="text/javascript"></script>
+<!-- Share Library etc -->
+<script src="${ctx}/assets/js/plugins/jquery.sharrre.js" type="text/javascript"></script>
+<!-- Control Center for Now Ui Kit: parallax effects, scripts for the example pages etc -->
+<script src="${ctx}/assets/js/now-ui-kit.js?v=1.1.0" type="text/javascript"></script>
+
+<!-- //自定义script -->
+<script type="text/javascript">
+
+/** 监听文档加载完事件 */
+$(function(){
+
+	/** 为验证码看不清楚绑定点击事件 */
+	$("a[class='transform']").click(function(){
+		/** 生成1-4之间的随机数(包含1与4) */
+		var cursor = Math.ceil(Math.random() * 4);
+		/** 重新设置验证码图片的src属性，让它引用一张新的图片 */
+		$("#vimg").attr("src", "images/" + cursor + ".jpg");
+	});
+
+	/** 为表单绑定onsubmit提交事件 */
+	 $("form[class='form']").submit(function(){
+		/** 做表单输入校验 */
+		var userId = $("#userId");
+		var pwd = $("#pwd");
+		var code = $("#code");
+		var tip = "";
+		if ($.trim(userId.val()) == ""){
+			tip = "账号不能为空！";
+			userId.focus();// 调用文本框获取焦点方法
+		}else if (!/^\w{5,20}$/.test($.trim(userId.val()))){
+			tip = "账号格式不正确！";
+			userId.focus();// 调用文本框获取焦点方法
+		}else if ($.trim(pwd.val()) == ""){
+			tip = "密码不能为空！";
+			pwd.focus();// 调用文本框获取焦点方法
+		}else if (!/^\w{6,20}$/.test($.trim(pwd.val()))){
+			tip = "密码格式不正确！";
+			pwd.focus();// 调用文本框获取焦点方法
+		}else if ($.trim(code.val()) == ""){
+			tip = "验证码不能为空！";
+			code.focus();// 调用文本框获取焦点方法
+		}else if (!/^[a-zA-Z0-9]{4}$/.test($.trim(code.val()))){
+			tip = "验证码格式不正确！";
+			code.focus();// 调用文本框获取焦点方法
+		} 
+		/** 判断表单是否通过校验 */
+		if (tip == ""){
+			return true;
+		}else{
+			alert(tip);
+			return false;
+		}
+	}); 
+});
+
+var acookie=document.cookie.split("; ");
+var user=getck("username");
+var pwd=getck("pwd");
+$("#userId").val(user);
+$("#passWord").val(pwd);
+function getck(user){
+	//获取单个cookies
+	for(var i=0;i<acookie.length;i++){
+		var arr=acookie[i].split("=");
+		if(user==arr[0]){
+			$("#autoLogin").attr("checked","checked");
+			return arr[1];
+		}
+	}
+}
+
+//换一张验证码
+ function change(){
+		var random=Math.random();
+		$("#autoCode").attr("src","${ctx}/customer/autoCode?change?"+random);
+}
+
+$("#loginBtn").click(function(){
+	   
+	   if($("#userId").val()==""){
+		   $("#tip").text("用户名不能为空");
+		   $("#userId").focus();// 调用文本框获取焦点方法
+	   }else if($("#passWord").val()==""){
+		   $("#tip").text("密码不能为空");
+		   $("#passWord").focus();// 调用文本框获取焦点方法
+	   }else if($("#codeInput").val()==""){
+		   $("#tip").text("验证码不能为空");
+	   }else{
+		   var userId=$("#userId").val();
+		   var passWord=$("#passWord").val();
+		   var codeInput=$("#codeInput").val();
+		   var autoLogin=$("#autoLogin:checked")
+		    if(autoLogin.length==1){
+			    $("#autoLogin").val("1")
+		    }else{
+		    	$("#autoLogin").val("0")
+		    }
+		   var online=$("#autoLogin").val();
+		   $.post("${ctx}/admin/loginToHome",{"userId":userId,"passWord":passWord,"codeInput":codeInput,"online":online},function(data){
+			   if(data.flag!="codeFail"){
+				   if(data.flag=="success"){
+					   window.location.href="${ctx}/admin/toIndex"
+				   }else if(data.flag=="fail"){
+					   $("#tip").text(data.tip)
+				   }
+			   }else{
+				   $("#tip").text(data.tip)
+			   }
+			   
+		   })
+	   }
+   })
+   
+   $("#registerBtn").click(function(){
+	   window.location.href="register.html";
+   })
+</script>
+</html>

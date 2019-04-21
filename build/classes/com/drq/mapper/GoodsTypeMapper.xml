@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.drq.mapper.GoodsTypeMapper">
+   <select id="showGoodsTypeList" resultType="GoodsType">
+     select * from goods_type 
+     <where>
+       <if test="userSelect!=null">
+         code like concat("%",#{userSelect}) or name like concat("%",#{userSelect}) or remark like concat("%",#{userSelect})
+       </if>
+     </where>
+      limit #{pageModel.startIndex},#{pageModel.pageSize}
+   </select>                           
+   
+   <select id="getRecordCount" resultType="Integer">
+     select count(1) from goods_type
+     <where>
+       <if test="userSelect!=null">
+         code like concat("%",#{userSelect}) or name like concat("%",#{userSelect}) or remark like concat("%",#{userSelect})
+       </if>
+     </where>
+   </select>
+   
+   <select id="getGoodsTypeBycode" resultType="GoodsType">
+     select * from goods_type where code=#{code} 
+   </select>
+   
+   <select id="codeLengthTypeName" resultType="GoodsType">
+     select * from goods_type where length(code)=#{codeLength}
+   </select>
+   
+   <select id="toAddMaxType" resultType="String">
+     select code from goods_type where length(code)=4 order by code desc limit 1
+   </select>
+   
+   <select id="getGoodsMinType" resultType="String">
+     select code from goods_type where length(code)=8 and code like concat(#{code},'%') order by code desc limit 1
+   </select>
+   
+   <select id="getAllGoodsMaxTypeName" resultType="GoodsType">
+     select code,name from goods_type where length(code)=4
+   </select>
+   
+   <select id="getGoodsMinTypeNameByCode" resultType="GoodsType">
+     select * from goods_type where length(code)=8 and code like concat(#{code},'%')
+   </select>
+   
+   <select id="getNameByCode" resultType="java.lang.String">
+     select name from goods_type where code=#{code}
+   </select>
+   
+   <insert id="addGoodsMaxType">
+      insert into goods_type(code,name,remark) values(#{code},#{name},#{remark})
+   </insert>
+   
+   <insert id="addGoodsMinType">
+      insert into goods_type(code,name,remark) values(#{code},#{name},#{remark})
+   </insert>
+   
+   <update id="upDataGoodsType">
+     update goods_type 
+     <set>
+       <if test="name!=null and name!=''">
+         name=#{name},
+       </if>
+       <if test="remark!=null and remark!=''">
+         remark=#{remark}
+       </if>
+     </set>
+     where code=#{code}
+   </update>
+   
+   <delete id="deleteGoodsType">
+     delete from goods_type where code in
+     <foreach collection="array" item="ids" open="(" separator="," close=")">
+       #{ids}
+     </foreach>
+   </delete>
+</mapper>

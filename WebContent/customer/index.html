@@ -1,0 +1,258 @@
+<#assign cxt=request.contextPath>
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>极客商城</title>
+	<link rel="stylesheet" href="${cxt}/css/base.css"/>
+	<link rel="stylesheet" href="${cxt}/css/index.css"/>
+	<link rel="stylesheet" href="${cxt}/css/home.css"/>
+	<!-- 引入jQuery框架 -->
+    <script type="text/javascript" src="${cxt}/js/jquery-1.11.0.js"></script>
+	<script type="text/javascript" src="${cxt}/js/jquery-migrate-1.2.1.js"></script>
+	<!-- 引入自定义的日期插件 -->
+    <script type="text/javascript" src="${cxt}/js/jquery-timer-1.0.js"></script>
+    
+	
+</head>
+<body>
+	<!-- header 头部 -->
+	<#include "top.html"/>
+	
+		<!-- nav 导航区开始 -->
+	<div class="nav">
+		<div class="container">
+			<ul class="nav-menu">
+				<!-- 主菜单 -->
+				<li id="home">
+					<!-- <a href="${cxt}/customer/index">首  页</a> -->
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- nav end 导航区结束-->
+
+
+	<!-- banner 横幅广告 -->
+	<div class="banner">
+		
+		<div class="banner-wrap">
+			<ul id="ul_img_ad" class="clear">
+			    <#list piceList as pic>
+			      <#if pic_index &lt; 5>
+				    <li><a href="javascript:void(0);" onclick="toDetail('${pic.requestUrl}')"><img src="${cxt}/file/${pic.imageUrl}"></a></li>
+				  </#if>
+				</#list>
+			</ul>
+		</div>
+		<div class="container">
+			<!-- 向左 -->
+			<a class="prev" href="javascript: void(0)"></a>
+			<!-- 向右 -->
+			<a class="next" href="javascript: void(0)"></a>
+			<!-- 图片切换的圆点 -->
+			<ol id="ol_circle" class="clear">
+				<li class="active"></li>
+			</ol>
+		</div>
+	</div>
+	<!-- banner end-->
+
+
+	<!-- content -->
+	<div class="content">
+		<div class="container">
+			<div class="section">
+				<div class="tips clear">
+					<span class="left f24 red">倒计时抢购</span>
+					
+				</div>
+				<div class="clear bg-white pr1">
+					<a href="#" class="left img-bg" style="width: 260px;height: 330px"><img src="${cxt}/images/product/1.jpg" alt=""></a>
+					<ul class="right">
+						<#list timeGoodsList as time>
+						  <#if time_index &lt; 6>
+						    <li class="clear qg_">
+							  <a href="${cxt}/customer/details/goodsDetails?id=${time.goods.id}" class="left l1"><img src="${cxt}/file/${time.goods.image}" alt="" style="width: 211px;height: 160px;"></a>
+							  <span class="text-top left">
+							  <a href="${cxt}/customer/detail.action?goods.id=${time.goods.id}">
+								   <#if time.goods.title?length &gt; 20>
+								     ${time.goods.title?substring(0,20)}
+								     <#else>
+								       ${time.goods.title}
+								   </#if>
+							  </a>
+							  <p>抢码价：</p>
+							  <p class="f18 bg-c40000 white">¥${time.goods.favorablePrice}</p>
+							  <p>【限时疯抢】</p>
+							  </span>
+							<div id="down_count_div_${time_index}">${time.limitDate?string("yyyy-MM-dd HH:mm:ss")}</div>
+						   </li>
+						  </#if>
+						</#list>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- content -->
+	<#include "footer.html"/>
+</body>
+
+<script type="text/javascript">
+		
+		/** 文档加载完 */
+		$(function(){
+			/* 后台返回map<String,List> typeMap,包括key:maxType value:maxList，key:minType value:minList */
+			 $.post("${cxt}/customer/showNav",function(data){
+				 /* 把大类型用li包着，放到ui .nav-menu里。 */
+				  var  maxTypeLength = data.maxType[0].length;
+				  var maxUl=$("<ul class='sub-Menu'></ul>");
+				  $.each(data.maxType[0],function(index){
+					 
+					  if(index<7){
+						  var maxLi=$("<li class='.nav-menu'></li>").attr("id","maxLi_"+index);
+						  var maxA=$("<a></a>");
+						  maxA.attr("href","${cxt}/customer/goodsList/goodsMinList?minCode="+this.code).text(this.name);
+						  maxA.appendTo(maxLi);
+						  maxLi.appendTo(".nav-menu")
+					  } else if(index==7){
+						  var moreLi=$("<li class='.nav-menu'></li>").attr("id","maxLi_"+index);
+						  var moreA=$("<a></a>");
+						  //点击下拉出来的小类型就跳转的链接
+						  moreA.attr("href","${cxt}/customer/goodsList/goodsMinList?minCode="+this.code).text("更多"); 
+						  moreA.appendTo(moreLi);
+						  moreLi.appendTo(".nav-menu");
+					  }else if(index>7){
+						  /* var moreLi1=$("<li class='.nav-menu'></li>").attr("id","maxLi_"+7); */
+						  var maxLi=$("<li></li>");
+						  var moreMaxA=$("<a></a>");
+						  //点击下拉出来的更多的大类型就跳转的链接
+						  moreMaxA.attr("href","${cxt}/customer/goodsList/goodsMinList?minCode="+this.code).text(this.name);
+						  moreMaxA.appendTo(maxLi);
+						  maxLi.appendTo(maxUl);
+						 if(index==maxTypeLength-1){
+						  var moreLi1=$("#maxLi_7");
+						  maxUl.appendTo(moreLi1);
+						 }
+					  }
+				  })
+				  
+				  //把下拉展开的小类型用ul，li包着
+				  $.each(data.minType,function(index){
+					  var minUl=$("<ul class='sub-Menu'></ul>");
+					  $.each(data.minType[index],function(i){
+						  var minLi=$("<li></li>");
+						  var minA=$("<a></a>");
+						  minA.attr("href","${cxt}/customer/goodsList/goodsMinList?minCode="+this.code).text(this.name.replace("----",""));
+						  minA.appendTo(minLi);
+						  minLi.appendTo(minUl);
+					  })
+					  minUl.appendTo("#maxLi_"+index);
+				  })
+				  
+			/* 	    //把多出来的大类型用ul，li包着，下拉展开
+				  $.each(data.maxType[0],function(index){
+					  var moreMaxUl=$("<ul class='sub-Menu'></ul>");
+					  $.each(data.maxType[index],function(i){
+						  if(index>=7){
+						  var moreMaxLi=$("<li></li>");
+						  var moreMaxA=$("<a></a>");
+						  moreMaxA.attr("href","${cxt}/customer/goodsList/goodsMinList?minCode="+this.code).text(this.name.replace("----",""));
+						  moreMaxA.appendTo(moreMaxLi);
+						  moreMaxLi.appendTo(moreMaxUl);
+						  }
+					  })
+					  moreMaxUl.appendTo("#maxLi_"+7);
+				  }) */
+				   //通过事件委托方式绑定元素，实现下拉上滑效果
+					var lis = $(".nav-menu");
+				 //鼠标移到ul导航栏的li触发li里面的ul
+					lis.on("mouseover","li",function(index){
+						/* $(this).addClass('active'); */
+						$(this).find("ul").show();
+					})
+					lis.on("mouseout","li",function(index){
+						/* $(this).removeClass('active'); */
+						$(this).find("ul").hide();
+					})
+			  })
+			
+			
+			/**======== 图片轮播广告 =========*/
+			/** 定义计数器 */
+			var cursor = 0;
+			/** 定义当前显示的li中图片索引号 */
+			var current = 0;
+			/** 获取所有的图片切换圆点*/
+			var lis = $("#ol_circle > li");
+			/** 迭代所有的li元素 */
+			lis.each(function(i, item){
+				/** 为它们绑定onmouseover事件 */
+				$(item).mouseover(function(event){
+					/** 当前li添加class样式 */
+					$(this).addClass("active");
+					/** 其它的li删除红色圆点class样式 */
+					lis.not(this).removeClass("active");
+					/** 显示当前圆点对应的图片 */
+					$("#ul_img_ad > li").eq(i).fadeIn(500);
+					/** 设置其它的图片隐藏 */
+					$("#ul_img_ad > li").not($("#ul_img_ad > li").eq(i)).hide();
+					/** 设置当前索引为用户光标对应的图片索引号 */
+					cursor = i;
+					/** 缓存当前显示图片的索引号 */
+					current = i;
+				})
+			});
+			
+			/** 开启定时器 */
+			window.setInterval(function(){
+				if (cursor >= lis.length){
+					cursor = 0;
+				}
+				/** 获取当前切换圆点li */
+				$(lis.get(cursor)).trigger("mouseover");
+				/** 自加 */
+				cursor++;
+			}, 5000);
+
+			/** 图片广告向左 */
+			$(".prev").click(function(){
+				cursor = current;
+				if (cursor < 0){
+					cursor = lis.length; // 初始化它的长度
+				}
+				/** 自减 */
+				cursor--;
+				/** 获取当前切换圆点li,触发它的mouseover事件 */
+				$(lis.get(cursor)).trigger("mouseover");
+			});
+
+			/** 图片广告向右 */
+			$(".next").click(function(){
+				cursor = current;
+				if (cursor >= lis.length - 1){
+					cursor = -1; // 初始化为-1
+				}
+				/** 自加 */
+				cursor++;
+				/** 获取当前切换圆点li */
+				$(lis.get(cursor)).trigger("mouseover");
+				
+			});
+
+
+			
+			/** 限时抢购(倒计时) */
+			var downCountVal=$("div[id^=down_count_div_");
+			$.each(downCountVal,function(index){
+				$(this).downCount($(this).text(), "还剩", "结束");
+			})
+		});
+		function toDetail(picUrl){
+			var goodsId = picUrl.replace("/customer/detail.action?goods.id=","");
+			window.location.href="${cxt}/customer/details/goodsDetails?id="+goodsId;
+		}
+	</script>
+</html>

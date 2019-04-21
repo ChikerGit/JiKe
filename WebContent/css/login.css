@@ -1,0 +1,149 @@
+.header-1
+ {
+	padding-top: 16px;
+}
+.header-1
+ .lo1 {
+	height: 80px;
+	width: 208px;
+	overflow: hidden;
+	display: inline-block;
+}
+.header-1
+ strong {
+	vertical-align: top;
+	line-height: 80px;
+	padding-left: 30px;
+}
+
+.content {
+	padding: 86px 0;
+}
+.content .ad1 {
+	padding-left: 100px;
+}
+.login-dialog {
+	padding: 20px 10px;
+	border: 1px solid #ccc;
+}
+.login-dialog p {
+	
+}
+.tabs-option {
+	padding-bottom: 14px;
+	border-bottom: 1px solid #ee2743;
+}
+.tabs-option span {
+	padding: 0 40px;
+	font-size: 14px;
+	color: #666666;
+}	
+.login-dialog p label {
+	
+}
+.login-dialog .p1 {
+	padding-top: 18px;
+}
+.login-dialog .p1 i {
+	margin-right: 10px;
+	width: 70px;
+	height: 28px;
+	display: inline-block;
+	background: url('../images/logo.png') no-repeat 0 -100px;
+}
+.login-dialog .p1 span {
+	display:  inline-block; 
+	vertical-align: top;
+	line-height: 28px;
+}
+.login-dialog p {
+	padding-top: 10px;
+}						
+.login-dialog .p2,
+.login-dialog .p3 {
+	padding-top: 14px;
+}
+.login-dialog .p2 label,
+.login-dialog .p3 label {
+	display: inline-block;
+	padding-left: 30px;
+	background: #c40000 url('../images/ico.png') no-repeat -108px 6px;
+}
+.login-dialog .p2 label {
+	background-position: -144px 6px;
+}
+
+.login-dialog p.p2 input[type="text"],
+.login-dialog p.p3 input[type="password"] {
+	width: 265px;
+	padding-left: 10px;
+	height: 28px;
+	line-height: 28px;
+	border: 1px solid #c40000;
+	border-left: 0 none ;
+}
+.login-dialog .p4 {
+
+} 
+.login-dialog .p4 label {
+	font-family: tahoma;
+}
+.login-dialog .p4 label input {
+	margin-right: 10px;
+	vertical-align: middle;
+}
+.login-dialog .p4 label em {
+	vertical-align: middle;
+}
+.login-dialog .p4 a {
+	color: #c40000;
+}
+.login-dialog .p4 a:hover {
+	text-decoration: underline;
+}
+.login-dialog .p5 {
+
+}
+.login-dialog .p5 label {
+	display: inline-block;
+	line-height: 30px
+}
+.login-dialog .p5 label input{
+	padding-left: 10px;
+	border: 1px solid #c40000;
+	line-height: 28px;
+	height: 28px;
+	width: 96px;
+	margin: 0;
+	vertical-align: middle;
+}
+.login-dialog .p5 img {
+	display: inline-block;
+	border: 1px solid #c40000;
+	height: 28px;
+	width: 82px;
+	margin: 0;
+	vertical-align: middle;
+	margin: 0 10px;
+}
+.login-dialog .p5 a {
+	display: inline-block;
+	width: 38px;
+	height: 28px;
+	border: 1px solid #c40000;
+	vertical-align: middle;
+	background: url('../images/ico.png') no-repeat -72px -51px;
+}
+.login-dialog .p6 {
+	padding-top: 20px;
+}
+.login-dialog .p6 input {
+	width: 136px;
+	height: 40px; 
+	border: 0 none;
+	background: #c40000;
+	color: #fff;
+	font-size: 14px;
+	font-family: 'Simsun' ;
+	margin-right: 10px;
+}

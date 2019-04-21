@@ -1,0 +1,214 @@
+<#assign cxt=request.contextPath>
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>极客电子商务平台-购物车</title>
+	<link rel="stylesheet" href="${cxt}/css/base.css"/>
+
+	<link rel="stylesheet" href="${cxt}/css/home.css"/>
+	<link rel="stylesheet" href="${cxt}/css/style1.css"/>
+	<!-- 引入jQuery框架 -->
+	<script type="text/javascript" src="${cxt}/js/jquery-1.11.0.js"></script>
+	<script type="text/javascript" src="${cxt}/js/jquery-migrate-1.2.1.js"></script>
+	<script type="text/javascript">
+		
+		/** 文档加载完 */
+		$(function(){
+
+			/** 获取所有的主菜单, 为所有的主菜单绑定onmouseover与onmouseout事件 */
+			$(".nav-menu > li").hover(
+				function(){ // onmouseover
+					/** 为主菜单li添加样式 */
+					$(this).addClass("active");
+					/** 通过主菜单找对应的子菜单用300毫秒滑下显示出来 */
+					$(this).find(".sub-Menu").slideDown(300);
+				},
+				function(){ // onmouseout
+					/** 首页主菜单li的样式不删除 */
+					if (this.id != "home"){
+						/** 删除主菜单li样式 */
+						$(this).removeClass("active");
+					}
+					/** 通过主菜单找对应的子菜单用10毫秒滑上隐藏出来 */
+					$(this).find(".sub-Menu").slideUp(10);
+				}
+			);
+
+			
+
+			/** 获取全选复选框为它绑定点击事件 */
+			$("#checkAll").click(function(){
+				/** 获取下面所有的checkbox,当全选选中时下面的全部选中,
+					当全选没有选中时,下面不需要选中 */
+				/** 查询所有的input元素它的类型为checkbox并且id属性值以box_开头 */
+				$("input[type='checkbox'][id^='box_']").attr("checked", this.checked);
+				/** 计算商品的总金额 */
+				calcPrice();
+			});
+
+			/** 如果全选复选框没有选中的话，让它选中 */
+			if (!$("#checkAll").attr("checked")){
+				$("#checkAll").trigger("click");
+			}else{
+				/** 计算商品的总金额 */
+				calcPrice();
+			}
+
+			/** 获取下面的checkbox为它们绑定点击事件 */
+			var boxs = $("input[type='checkbox'][id^='box_']");
+			boxs.click(function(){
+				/** 计算商品的总金额 */
+				calcPrice();
+				/** 让全选选中 */
+				$("#checkAll").attr("checked", boxs.length == boxs.filter(":checked").length);
+			});
+
+			/** 获取所有的购买数据文本框,为它们绑定onchange事件 */
+			$("input[id^='num_']").change(function(){
+				/** 获取购买数量 */
+				var num = this.value;
+				/** 对购买数量做判断 */
+				if (!/^\d+$/.test(num) || num < 1){
+					this.value = 1;
+					num = 1;
+				}
+				/** 获取单价 */
+				var price = parseFloat($(this.id.replace("num", "#price")).html());
+				/** 设置小计 */
+				$(this.id.replace("num", "#total")).html(num * price);
+				/** 计算商品的总金额 */
+				calcPrice();
+			});
+
+
+			/** 获取反选复选框为它绑定点击事件 */
+			$("#uncheck").click(function(){
+				/** 迭代下面所有的checkbox */
+				boxs.each(function(){
+					/** 让自己取选自己的checked属性值 */
+					$(this).attr("checked", !this.checked);
+				});
+				/** 计算商品的总金额 */
+				calcPrice();
+				/** 让全选选中 */
+				$("#checkAll").attr("checked", boxs.length == boxs.filter(":checked").length);
+			});
+
+		});
+
+		/** 定义计算商品总金额的函数 */
+		var calcPrice = function(){
+			/** 获取下面所有选中的checkbox */
+			var boxs = $("input[type='checkbox'][id^='box_']:checked");
+			/** 定义总金额 */
+			var total_price = 0;
+			/** 如果有选中的，就计算 */
+			if (boxs.length > 0){
+				/** 迭代所有选中的checkbox */
+				boxs.each(function(){
+					/** 获取价格 */
+					var price = parseFloat($(this.id.replace("box", "#price")).html());
+					/** 获取数量 */
+					var num = parseInt($(this.id.replace("box", "#num")).val());
+					/* 设置小计金额 **/
+					total_price += price * num;
+				});
+				/** 设置显示总金额 */
+				$("#total_price").html("¥ "+ total_price +" 元");
+			}else{
+				/** 设置显示总金额 */
+				$("#total_price").html("¥ 0.00 元");
+			}
+		};
+	</script>
+</head>
+<body>
+	<!-- header -->
+	<#include "top.html"/>
+	<!-- nav end-->
+
+	
+	<!-- content -->
+	<div class="content">
+	
+	
+	
+	  <#if orderItems?size &gt; 0>
+		<div class="container">
+			
+			
+			<div class="wd_dd">
+				<font color="red">${tip!''}</font>
+				<table class="xxt_">
+				<thead>
+					<tr>
+						<th class="th1">商品名称</th>
+						<th>单价（元）</th>
+						<th>数量</th>
+						<th>实付款（元）</th>
+						<th>交易状态</th>
+						<th>交易操作</th>
+					</tr>
+				</thead>
+				</table>
+				<#if orderItems??>
+				<#list orderItems as orderItem>
+				<table class="qrsh_">
+				<thead>
+					<tr>
+						<th><input type="checkbox" name="Bike" style="margin-right:10px"><span>${orderItem.order.createDate?string("yyyy-MM-dd")}</span><span>订单编号</span><span>${orderItem.order.orderCode}</span></th>
+						
+					</tr>
+				</thead>
+				<tbody >
+					<tr >
+						<td class="td1"><img src="${cxt}/file/${orderItem.goods.image}">${orderItem.goods.title}</td>
+						<td>${orderItem.goods.favorablePrice?c}</td>
+						<td>${orderItem.buyNum}</td>
+						<td style="color:red;">${orderItem.buyNum*orderItem.goods.favorablePrice}</td>
+						<td>交易成功</td>
+						<td>
+							<a href="javascript:void(0)">确认收货</a><br>
+							<a href="javascript:void(0)">退货</a>
+						</td>
+					</tr>
+				</tbody>
+				</table>
+				</#list>	
+				</#if>
+			</div>
+			
+			<#if pageModel.recordCount??>
+                <#import "pageCon/pager.html" as page>
+                <@page.pager pageIndex=pageModel.pageIndex pageSize=pageModel.pageSize recordCount=pageModel.recordCount toURL="${cxt}/customer/buyCar/showMyOrder"/>
+            </#if>  
+		</div>
+		<#else>
+		   <div style="text-align: center;">
+		      <img alt="" src="${cxt}/images/nogoods.jpg">
+		      <a href="${cxt}/customer/index">请再逛逛</a>
+		   </div>
+		</#if>
+	</div>
+	<!-- content -->
+	<!-- <div class="footer">
+		 <p class="text-center">
+		 	<span>
+		 		<a href="about-us.html">关于我们</a><font>|</font>
+		 		<a href="about-us.html">商务合作</a><font>|</font>
+		 		<a href="about-us.html">网站地图</a><font>|</font>
+		 		<a href="about-us.html">友情链接</a><font>|</font>
+		 		<a href="about-us.html">法律声明</a>
+		 	</span>
+		 </p>
+		 <p class="text-center">
+		 	<span>
+		 		极客
+		 	</span>
+		 </p>
+	</div> -->
+	<#include "footer.html"/>
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+<#assign cxt=request.contextPath>
+
+<div class="header">
+		<!-- header-top 头部上面部分 -->
+		<div class="header-top clear">
+			<div class="container">
+				<div class="left">
+					<span class="home"><em><a href="/JiKe/customer/index.html">首页</a></em></span>
+					<#if userInfo??>
+					 <!--  <input type="text"> -->
+					     <span>欢迎  <font color="red">
+					                  【${userInfo.userId!}】
+					       <input type="hidden" id="userId" value="${userInfo.userId!}">
+					     </font> 来到极客</span> 
+					     <#else>
+					      <span>请<a href="${cxt}/login.html">登录  |</a></span>
+					      <span><a href="${cxt}/register.html">注册</a></span>
+					      <!-- <a href="register.html">免费注册</a>    -->      
+					  </#if>
+				</div>
+				 <ul class="right clear">
+				    <li><a href="${cxt}/customer/buyCar/showMyOrder">我的订单</a></li>
+				    <#if userInfo??>
+					<li><a href="${cxt}/customer/toUpdateCustomer?id=${userInfo.id}">个人中心</a></li>
+					</#if>
+					<#if userInfo??&&userInfo.role!=0>
+					<li><a href="/JiKe/admin/toLogin">进入后台</a></li>
+					</#if>
+					 <li><a href="${cxt}/customer/outLogin">退出系统</a> </li>
+	
+			</div>
+		</div>
+		<!-- header-top  end-->
+	</div>
+	
+	<!-- search-logo 搜索部分 -->
+		<div class="search-logo">	
+			<div  class="clear container">
+				<!-- <a href="${cxt}/customer/index" class="left lo1"><img src="${cxt}/images/logo2.png" alt=""></a> -->
+				<form class="left fr1" action="${cxt}/customer/goodsList/goodsSelect" methed="post">
+					<p>
+						<input placeholder="" class="f14 c-999999" type="text" name="userSelect">
+						<input type="submit" class="f14 white" value="搜索">
+					</p>
+
+				</form>
+				<span class="right">
+					<a href="${cxt}/customer/buyCar/showBuyCar" class="shopingcart"></a><font id="count" style="border: 1px solid #ccc;"></font>
+					<a href="${cxt}/customer/buyCar/showBuyCar">购物车</a>
+				</span>
+			</div>
+			<!-- search-logo end-->
+		</div>
+	<!-- header end-->
+	
+	<script type="text/javascript">
+ $(function(){
+	 
+	  $.post("${cxt}/customer/buyCar/showBuyNum",function(data){
+		  if ($("#userId").val()!=null&&isNaN($("#userId").val()))
+			 $("#count").text(data);
+			 else
+				 $("#count").text(0);
+	  }) 
+ })
+</script>

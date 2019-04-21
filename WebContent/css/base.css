@@ -1,0 +1,338 @@
+/********************************************************************************************/
+/********************************************************************************************/
+/********************************************************************************************/
+/********************************************************************************************/
+/*********************************************base******************************************/
+.container {
+	width: 1200px;
+	margin: 0 auto;
+}
+.text-center {
+	text-align: center;
+}
+.clear {
+	zoom: 1;
+}
+.clear:after {
+	display: block;
+	content: '';
+	clear: both;
+}
+.left {
+	float: left;
+}
+.right {
+	float: right;
+}
+.text-2em {
+	text-indent: 2em;
+}
+.text-bottom {
+	vertical-align: bottom;
+}
+.text-top {
+	vertical-align: top;
+}
+.text-left {
+	text-align: left;
+}
+.text-right {
+	text-align: right;
+}
+.text-center {
+	text-align: center;
+}
+.text-middle {
+	vertical-align: middle;
+}
+
+
+/******************nav 导航样式 ********************************/
+.nav {
+	/** 高度 */
+	height: 40px;
+	/** 行高 */
+	line-height: 40px;
+	/** 背景颜色 */
+	background: #000000;
+}
+/** 控制主菜单中的li标签样式 */
+.nav-menu>li {
+	/** 层叠引索 */
+	z-index: 9999;
+	/** 上面距离 */
+	top: 0;
+	/** 左边距离 */
+	left: 0;
+	/** 位置相对的 */
+	position: relative;
+	/** 允许左边浮动 */
+	float: left;
+	/** 内补丁 */
+	padding: 0 36px;
+	/** 外补丁 */
+	margin: 0 2px;
+	/** 字体大小 */
+	font-size: 18px;
+	/** 字体 */
+	font-family: "microsoft Yahei";
+}
+/** 控制主菜单中a标签的字体颜色 */
+.nav-menu>li>a {
+	color: white;
+}
+/** 控制子菜单的样式 */
+.nav-menu ul {
+	/** 层叠引索 */
+	z-index: 99;
+	/** 背影颜色 */
+	background: #000000;
+	/** 字体大小 */
+	font-size: 12px;
+	/** 字体 */
+	font-family: 'Simsun';
+	/** 文本排列 */
+	text-align: center;
+	/** 宽度 */
+	width: 100%;
+	/** 左边距离 */
+	left: -1px;
+	/** 上面距离 */
+	top: 38px;
+	/** 位置绝对的 */
+	position: absolute;
+	/** 边框 */
+	border: 1px solid #000000;
+	/** 高度 
+	height: 192px;*/
+	/** 溢出部分隐藏 */
+	overflow: hidden;
+	/** 元素隐藏 */
+	display:none;
+}
+/** 控制子菜单中的a标签样式 */
+.nav-menu ul a {
+	/** 字体颜色 */
+	color: #ffffff;
+	/** 行高 */
+	line-height: 24px;
+	/** 高度 */
+	height: 24px
+}
+/** 控制子菜单中li样式 */
+.nav-menu ul li {
+	/** 行高 */
+	line-height: 24px;
+}
+/** 控制子菜单中li光标放上去的样式 */
+.nav-menu ul li:hover {
+	background: #000000;
+}
+/** 控制子菜单中li中a标签的样式 */
+.nav-menu ul li:hover a {
+	color: #fff;
+}
+/** 控制主菜单li标签 */
+.nav-menu .active {
+	/** 高度 */
+	height: 38px;
+	/** 行高 */
+	line-height: 38px;
+	/** 边框 */
+	border: 1px solid #000000;
+	/** 背景颜色 */
+	background: #fff;
+	/** 左边边框 */
+	border-left: none 0;
+	/** 右边边框 */
+	border-right: none 0;
+}
+/** 控制主菜单中li中a标签样式 */
+.nav-menu .active a {
+	color: #400000;
+}
+.gd_{
+	position:relative;
+}
+.tc{
+	width:220px;
+	border:1px solid red;
+	border-top:0px solid red;
+	background:#fff;
+	display:none;
+	color:#000;
+	position:absolute;
+	top:40px;
+	left:0;
+	padding:10px 20px;
+}
+.lx_{
+	position:relative;
+	padding-bottom:5px;
+	padding-left:15px;
+	border-bottom:1px solid #ccc;
+}
+.lx_ img{
+	position:absolute;
+	left:0;
+	top:12px;
+}
+.tc .lx_ a{
+	color:#000;
+	
+}
+#xl_ a{
+	font-size:10px;
+	color:#000;
+	display:block;
+	float:left;
+	padding-right:10px;
+}
+/***************************header-top**************************************************/
+.header-top {
+	height: 30px;
+	line-height: 30px;
+	background: #eeeeee;
+	-webkit-box-shadow: 0px 2px 6px #aaa9a9 ;
+	-moz-box-shadow: 0px 2px 6px #aaa9a9 ;
+	box-shadow: 0px 2px 6px #aaa9a9 ;
+}
+.header-top a {
+	color: #333333;
+}
+.header-top a:hover {
+	text-decoration: underline;
+}
+.header-top .home {
+	background: url('../images/ico.png') no-repeat;
+	padding-left: 24px;
+}
+.header-top .home em {
+	background: #eeeeee;
+}
+.header-top .left span {
+	margin-right: 14px;
+}
+
+.header-top .right {
+	
+} 
+.header-top .right>li {
+	float: left;
+	margin-left: 16px;
+	position: relative;
+	top: 0;
+	left: 0;
+}
+.header-top .right>li a {
+	
+}
+.header-top .right>li i {
+	display: inline-block;
+	width: 10px;
+	height: 12px;
+	margin-left: 4px;
+	background: url('../images/ico.png') no-repeat -73px 6px;
+}
+.header-top .right ul {
+	left: 0;
+	top: 30px;
+	position: absolute;
+	background: #fff;
+	height: 0;
+	overflow: hidden;
+}
+.header-top .right>li:hover ul {
+	height: auto;
+}
+.search-logo {
+	height: 118px;
+}
+.search-logo .lo1 {
+	display: inline-block;
+	height: 80px;
+	width: 208px;
+	overflow: hidden;
+}
+.search-logo .container {
+	padding: 22px 40px 12px;
+	width: 1120px;
+} 
+.search-logo .fr1 {
+	margin-left: 73px;
+	margin-top: 12px;
+}
+.search-logo .fr1 input[type="text"] {
+	border: 2px solid #1a3687;
+	border-right: 0 none;
+	line-height: 38px;
+	height: 38px;
+	padding-left: 10px;
+	width: 500px;
+}
+.search-logo .fr1 input[type="submit"] {
+	width: 100px;
+	height: 42px;
+	border: 2px solid #1a3687;
+	background: #1a3687;
+	margin-left: -6px;
+}
+.search-logo .fr1 p a {
+	text-indent: 2em;
+	line-height: 30px;
+	color: #999999;
+}
+.search-logo .right {
+	padding-top: 18px;
+	height: 32px;
+	line-height: 32px 
+}
+.search-logo .right .shopingcart {
+	display: inline-block;
+	height: 32px;
+	width: 46px;
+	border: 0 none;
+	background: #1a3687 url('../images/ico.png') no-repeat -23px 8px;
+
+}
+.search-logo .right a {
+	vertical-align: top;
+	display: inline-block;
+	text-align: center;
+	line-height: 30px;
+	height: 30px;
+	border: 1px solid #ccc;
+	border-left: 0 none;
+	background: #eeeeee;
+	width: 84px;
+	color: #333333;
+}
+.search-logo .right font {
+	vertical-align: top;
+	text-align: center;
+	display: inline-block;
+	width: 48px;
+	line-height: 30px;
+	/* border: 1px solid #ccc; */
+	border-left: 0 none;
+}
+/***********************footer***************************************/
+
+.footer {
+	padding: 50px 0;
+	margin-top: 10px;
+	border-top: 1px solid #000;
+}
+.footer a {
+	color: #333333;
+	font-size: 14px;
+}
+.footer font {
+	color: #333333;
+	margin: 0 18px;
+}
+.footer span {
+	color: #333333;
+	font-size: 14px;
+	line-height: 22px;
+}

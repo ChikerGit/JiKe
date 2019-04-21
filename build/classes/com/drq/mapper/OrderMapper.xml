@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.drq.mapper.OrderMapper">
+   <select id="showOrderList" resultMap="orderMapper2">
+     select * from ordered 
+       <where> 
+        <if test="time!=null">
+        create_date like concat("%",#{time},"%") or send_date like concat("%",#{time},"%")
+        </if>
+        <if test="userSelect!=null">
+        and (id like concat("%",#{userSelect},"%") or order_code like concat("%",#{userSelect},"%") or total_amount like concat("%",#{userSelect},"%"))
+        </if>
+      </where>
+     limit #{page.startIndex},#{page.pageSize}
+   </select>
+   
+   <select id="getRecordCount" resultType="Integer">
+           select count(1) from ordered
+     <where> 
+        <if test="time!=null">
+        create_date like concat("%",#{time},"%") or send_date like concat("%",#{time},"%")
+        </if>
+        <if test="userSelect!=null">
+        and (id like concat("%",#{userSelect},"%") or order_code like concat("%",#{userSelect},"%") or total_amount like concat("%",#{userSelect},"%"))
+        </if>
+      </where>
+   </select>
+   
+   <select id="getOrderById" resultMap="orderMapper2">
+     select * from ordered where id=#{id}
+   </select>
+   
+   <insert id="saveOrder">
+      <selectKey keyProperty="id" keyColumn="id" resultType="Integer">
+         select LAST_INSERT_ID() as id
+      </selectKey>
+      insert into ordered(order_code,create_date,trading_status,total_amount,user_id) values(#{orderCode},#{createDate},#{tradingStatus},#{totalAmount},#{user.id})
+   </insert>
+   
+   <resultMap type="Order" id="orderMapper1">
+     <result property="orderCode" column="order_code"/>
+     <result property="createDate" column="create_date"/>
+     <result property="sendDate" column="send_date"/>
+     <result property="tradingStatus" column="trading_status"/>
+     <result property="totalAmount" column="total_amount"/>
+   </resultMap>
+   
+   <resultMap type="Order" id="orderMapper2" extends="orderMapper1">
+     <association property="user" column="user_id" 
+       select="com.drq.mapper.UserMapper.toUpDateUser"/>
+   </resultMap>
+</mapper>

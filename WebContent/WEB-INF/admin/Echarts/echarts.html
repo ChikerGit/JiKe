@@ -1,0 +1,98 @@
+<#assign cxt=request.contextPath>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+   <!-- 为ECharts准备一个具备大小（宽高） -->
+    <div id="main" style="height:400px"></div>
+</body>
+<!-- 必须引入外部js -->
+<script type="text/javascript" src="${cxt}/lib/jquery/1.9.1/jquery.min.js"></script>  
+ <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+<script type="text/javascript">
+        //json获取数据
+        $.post("${cxt}/admin/Echarts/showGoodsEcharts",function(data){
+        	var array=new Array();
+        	var nums=new Array();
+        	var i=0;
+        	for(var key in data){
+        		array[i]=key;
+        		nums[i]=data[key];
+        		i++;
+            }
+        	require.config({
+                paths: {
+                    echarts:  'http://echarts.baidu.com/build/dist'  //获取百度在线路径，必须联网，可配置离线
+                }
+            });
+            require(
+                [
+                    'echarts',
+                    'echarts/chart/bar',   // 配置相应的图形   pie:饼图
+                    
+                ],
+                function (ec) {
+                	//div id
+                    var myChart = ec.init(document.getElementById('main'));
+                    var option = {
+                    		//---------------------网上拷贝的数据---------------------
+                    		   title : {
+        text: '热销商品',
+        subtext: '柱状图'
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['销售量']
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            data : array
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+        {
+            name:'销售量',
+            type:'bar',
+            data:nums,
+            markPoint : {
+                data : [
+                    
+                ]
+            },
+            markLine : {
+                data : [
+                    
+                ]
+            }
+        }
+    ]
+                    		  //---------------------网上拷贝的数据---------------------
+                    }
+                    myChart.setOption(option);
+                }
+            );
+        })
+</script>
+</html>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.drq.mapper.OrderItemMapper">
+   
+   <insert id="saveOrderItem">
+      insert into order_item(order_id,goods_id,order_num) values(#{orderId},#{goodsId},#{num})
+   </insert>
+   
+   <select id="getOrderConunt" resultType="Integer">
+      select count(1) from order_item
+   </select>
+   
+   <select id="showMyOrder" resultMap="orderItemMapper">
+      SELECT * FROM ordered AS o LEFT JOIN order_item AS i ON o.id=i.order_id WHERE o.user_id=#{user.id} ORDER BY CREATE_DATE DESC limit #{page.startIndex},#{page.pageSize}
+   </select>
+   
+   <select id="showGoodsEcharts" resultMap="echartsMapper">
+      SELECT g.type_code,sum(i.ORDER_NUM) as num FROM order_item AS i LEFT JOIN goods AS g ON i.goods_id=g.id GROUP BY TYPE_CODE
+   </select>  
+   
+   <resultMap type="java.util.Map" id="echartsMapper">
+     <result property="value" column="num" javaType="String"/>
+     <association property="key" column="type_code" javaType="String"
+        select="com.drq.mapper.GoodsTypeMapper.getNameByCode"/>
+   </resultMap>
+   
+   <resultMap type="OrderItem" id="orderItemMapper">
+     <result property="buyNum" column="order_num"/>
+     <association property="order" column="order_id" 
+        select="com.drq.mapper.OrderMapper.getOrderById"/>
+     <association property="goods" column="goods_id" 
+        select="com.drq.mapper.GoodsMapper.getGoodsById"/>
+   </resultMap>
+   
+</mapper>

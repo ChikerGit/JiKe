@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.drq.mapper.TimeGoodsMapper">
+   
+   <select id="getRecordCount" resultType="Integer">
+     SELECT count(1) FROM  time_limited AS t LEFT JOIN goods AS g ON t.GOODS_ID=g.ID
+     <where>
+        <if test="time!=null">
+          t.limit_date like concat("%",#{time},"%")
+        </if> 
+        <if test="userSelect!=null">
+          and (g.title like concat("%",#{userSelect},"%") or g.price like concat("%",#{userSelect},"%") or g.favorable_price like concat("%",#{userSelect},"%"))
+        </if>
+        and (t.limit_date &gt; now()) 
+      </where>
+   </select>
+   
+   <select id="showTimeList" resultMap="TimeMapper2">
+     SELECT t.id,t.limit_date,t.goods_id,is_end,g.title,g.image,g.price,g.favorable_price FROM  time_limited AS t LEFT JOIN goods AS g ON t.GOODS_ID=g.ID 
+     <where>
+        <if test="time!=null">
+          t.limit_date like concat("%",#{time},"%")
+        </if> 
+        <if test="userSelect!=null">
+          and (g.title like concat("%",#{userSelect},"%") or g.price like concat("%",#{userSelect},"%") or g.favorable_price like concat("%",#{userSelect},"%"))
+        </if>
+        and (t.limit_date &gt; now()) 
+      </where>
+      <if test="page!=null">
+        limit #{page.startIndex},#{page.pageSize} 
+      </if>
+   </select>
+   
+   <select id="getTimeGoodsById" resultMap="TimeMapper2">
+     select * from time_limited where id=#{id}
+   </select>
+   
+   <insert id="addTimeGoods">
+     insert into time_limited(limit_date,goods_id,is_end) values(#{time.limitDate},#{time.goods.id},#{time.isEnd})
+   </insert>
+   
+   <update id="upDateTimeGoods">
+     update time_limited 
+     <set>
+       <if test="time.limitDate!=null">
+         limit_date=#{time.limitDate},
+       </if>
+       <if test="time.goods.id!=null">
+         goods_id=#{time.goods.id},
+       </if>
+       <if test="time.isEnd!=null">
+         is_end=#{time.isEnd}
+       </if>
+     </set>
+     where id=#{time.id}
+   </update>
+   
+   <delete id="deleteTimeGoods">
+     delete from time_limited where id in
+     <foreach collection="array" item="ids" open="(" separator="," close=")">
+       #{ids}
+     </foreach>
+   </delete>
+   
+   <resultMap type="Timlimited" id="TimeMapper1">
+     <result property="limitDate" column="limit_date"/>
+     <result property="isEnd" column="is_end"/>
+   </resultMap>
+   
+   <resultMap type="Timlimited" id="TimeMapper2" extends="TimeMapper1">
+     <association property="goods" column="goods_id" 
+       select="com.drq.mapper.GoodsMapper.getGoodsById"/>
+   </resultMap>
+</mapper>

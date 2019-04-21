@@ -1,0 +1,359 @@
+<#assign cxt=request.contextPath>
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>极客电子商务平台-物品详情</title>
+	<link rel="stylesheet" href="${cxt}/css/base.css"/>
+	<link rel="stylesheet" href="${cxt}/css/details.css"/>
+	<link rel="stylesheet" href="${cxt}/css/home.css"/>
+	<!-- 引入jQuery放大镜插件需要的样式 -->
+	<link rel="stylesheet" href="${cxt}/css/jquery.jqzoom.css"/>
+	<!-- 引入jQuery框架 -->
+	<script type="text/javascript" src="${cxt}/js/jquery-1.11.0.js"></script>
+	<script type="text/javascript" src="${cxt}/js/jquery-migrate-1.2.1.js"></script>
+	<!-- 引入自定义的日期插件 -->
+	<script type="text/javascript" src="${cxt}/js/jquery-timer-1.0.js"></script>
+	<!-- 引入jQuery放大镜插件 -->
+	<script type="text/javascript" src="${cxt}/js/jquery.jqzoom-core.js"></script>
+    <!-- /* 引入地址下拉框 */ -->
+	<!-- <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+	<script src="https://cdn.bootcss.com/distpicker/2.0.1/distpicker.js"></script>
+ -->
+      <script src="${cxt}/js/adress/bootcss3.2.1jquery.js"></script>
+      <script src="${cxt}/js/adress/distpicker.js"></script>
+     <!--  放大镜 -->
+<script type="text/javascript" src="${cxt}/js/jquery-1.8.3.js"></script>
+<link rel="stylesheet" type="text/css" href="${cxt}/css/cloudzoom.css" />
+
+<script type="text/javascript" src="${cxt}/js/cloudzoom.js"></script>
+</head>
+<body>
+	<!-- header -->
+	<#include "top.html"/>
+	<!-- nav end-->
+	<!-- banner -->
+		<!-- <div class="ad">
+			<div class="container">
+				<a href="#"><img src="${cxt}/images/ad/2.jpg" alt=""></a>
+			</div>
+		</div> -->
+	<!-- banner end-->
+	<!-- content -->
+	<div class="content">
+		<div class="container">
+			<!-- crumbs -->
+			<div class="crumbs">
+				<a class="home" href="#"></a><font>></font><a href="#">${goodsMaxTypeName}</a><font>></font><a href="#">${goodsMinTypeName}</a><font>></font><a class="a1" href="#">${goods.title}</a>
+			</div>
+			<!-- crumbs end-->
+			<!-- section -->
+			<div class="section clear">
+				<div class="section-main left">
+					<div class="img-2 left">
+						<!-- 图片放大镜显示框 -->
+				<img class="cloudzoom" id="curImg" src="${cxt}/file/${goods.image}" data-cloudzoom="zoomImage: '${cxt}/file/${goods.image}'" width="400" height="410" style="border: 2px solid #666;"/>
+						<!-- 产品图片 -->
+						 <!-- <div class="p-list" style="clear:left;padding-top:5px;">
+							<div class="p-wrap">
+								<ul id="my_ul" class="clear xt_">
+									<li class="active">
+										<i></i>
+										<a href='javascript:void(0);' rel="{gallery:'gal1',smallimage:'${cxt}/file/${goods.image}',largeimage:'${cxt}/file/${goods.image}'}">
+											<img class="cloudzoom" data-cloudzoom="zoomImage: '${cxt}/file/${goods.image}'" src="${cxt}/file/${goods.image}"/>
+										</a>
+									</li>
+									<li>
+										<i></i>
+										<a href='javascript:void(0);' rel="{gallery:'gal1',smallimage:'images/ad/1.jpg',largeimage:'images/ad/1.jpg'}">
+											<img data-cloudzoom="zoomImage: '${cxt}/file/${goods.image}'" src="${cxt}/images/ad/1.jpg"/>
+										</a>
+									</li>
+									<li>
+										<i></i>
+										<a href='javascript:void(0);'		    rel="{gallery:'gal1',smallimage:'images/ad/3.jpg',largeimage:'images/ad/3.jpg'}">
+											<img data-cloudzoom="zoomImage: '${cxt}/file/${goods.image}'" src="${cxt}/images/ad/3.jpg"/>
+										</a>
+									</li>
+									<li>
+										<i></i>
+										<a href='javascript:void(0);'		    rel="{gallery:'gal1',smallimage:'images/ad/4.jpg',largeimage:'images/ad/4.jpg'}">
+											<img data-cloudzoom="zoomImage: '${cxt}/file/${goods.image}'" src="${cxt}/images/ad/4.jpg"/>
+										</a>
+									</li>
+									<li>
+										<i></i>
+										<a href='javascript:void(0);'		    rel="{gallery:'gal1',smallimage:'images/ad/5.jpg',largeimage:'images/ad/5.jpg'}">
+											<img data-cloudzoom="zoomImage: '${cxt}/file/${goods.image}'" src="${cxt}/images/ad/5.jpg"/>
+										</a>
+									</li>
+									<li>
+										<i></i>
+										<a href='javascript:void(0);'		    rel="{gallery:'gal1',smallimage:'images/ad/6.jpg',largeimage:'images/ad/6.jpg'}">
+											<img data-cloudzoom="zoomImage: '${cxt}/file/${goods.image}'" src="${cxt}/images/ad/6.jpg"/>
+										</a>
+									</li>
+								</ul>
+								向左
+								<a class="prev" href="javascript:;">&lt;</a>
+								向右
+								<a class="next" href="javascript:;">&gt;</a>
+							</div>
+						</div>  -->
+						<!-- 产品图片 -->
+					</div>
+					<div class="details left">
+					<input type="hidden" id="gid" value="${goods.id}"/>
+						<h1 class="f18 c-333333">${goods.title}</h1>
+						<!-- <p class="f12 c-cc3333">100%外贸原单产品，多年外贸出口经验</small>
+						<p class="f12 c-cc3333">【3-14天闪电发货】【地级市包物流】</small> -->
+						<div class="d1 clear">
+							<div class="d1_l">
+								<span><i>参考价：</i>${goods.price}</span><a>年中庆典</a><br/>
+								<strong><b>促销价：</b>￥${goods.favorablePrice}</strong>
+							</div>
+							
+						</div>
+						<div class="d2 clear">
+							<!-- <span>选择颜色：</span>
+							
+							<a href="javascript:void(0)" class="bant">雪域白</a>
+							<a href="javascript:void(0)" class="banb">精灵黑</a>
+						
+							<br/><br/><br/>
+							<span>RAM：</span>
+							<a href="javascript:void(0)" class="bant">4GB</a>
+							<a href="javascript:void(0)" class="banb">6GB</a>
+							<br/><br/><br/>
+							<span>ROM</span>
+							<a href="javascript:void(0)" class="bant">32G</a>
+							<a href="javascript:void(0)" class="banb">64G</a>
+							<a href="javascript:void(0)" class="banb">128G</a> -->
+						</div>
+					
+						<!-- <p class="p1"><span>送至：</span>
+						<span data-toggle="distpicker" data-autoselect="3">
+						<select name="address" id="address"></select>
+						<select name="address2" id="address2"></select>
+						<select name="address3" id="address3"></select>
+						</span>
+						<input type="text">
+						<em>下单后预计48小时为您送达</em></p> -->
+						<div class="d4">
+							<font class="clear text-middle kj_">
+								<input type="text" value="1" style="height:25px;" id="buy_num" size="2" class="left"/>
+								<span class="left">
+								<a class="c-333333 bold" href="javascript:void(0)" id="add">+</a>
+								<a class="c-666666 bold" href="javascript:void(0)" id="min" style="border-top: 1px solid #7d7d7d;">-</a></span>
+							</font>
+							<a class="text-middle shoppingcart" href="javascript:void(0)" id="addGoodCar"><i></i>加入购物车</a>
+							
+						</div>
+					</div>	
+				</div>
+				
+			</div>
+			<!-- section end -->
+			<!-- section-->
+			<div class="section clear">
+				
+				<div class="section-main sm1 right">
+					<div class="section-top">
+						<div class="d1 clear">
+							<div class="left tabs-sption">
+								<span class="active">商品介绍</span>
+							</div>
+							
+						</div>
+						<div class="d2">
+							<h3 class="f14">品牌名称：${goods.brandName}</h3>
+							<div class="d2-1 clear">
+								<div>
+									
+								</div>
+								<ol class="_fl_">
+									<li><i>上市日期：</i>${goods.createDate?string('dd.MM.yyyy')}</li>
+									<!-- <li><i>手机类型：</i>4G手机</li>
+									<li><i>触摸屏类型：</i>电容屏，多点触控</li> -->
+								</ol>
+								 <ol class="_fl_">
+									<li><i>手机品牌：</i>${goods.brandName}</li>
+									
+								</ol>
+								
+			</div>
+			<!-- section end-->
+		</div>
+	</div>
+	<!-- content -->
+
+	<#include "footer.html"/>
+</body>
+<script type="text/javascript">
+  /** 文档加载完 */
+	$(function(){
+		$('.d2').on("click",'.banb',function(){
+			$(this).addClass('bant');
+			$(this).removeClass('banb');
+		});
+		$('.d2').on("click",'.bant',function(){
+			$(this).addClass('banb');
+			$(this).removeClass('bant');
+		});
+		
+		/** 获取所有的主菜单 */
+		var menu = $(".nav-menu > li");
+		/** 为所有的主菜单绑定onmouseover与onmouseout事件 */
+		menu.hover(
+			function(){ // onmouseover
+				/** 为主菜单li添加样式 */
+				$(this).addClass("active");
+				/** 通过主菜单找对应的子菜单用300毫秒滑下显示出来 */
+				$(this).find(".sub-Menu").slideDown(300);
+			},
+			function(){ // onmouseout
+				/** 首页主菜单li的样式不删除 */
+				if (this.id != "home"){
+					/** 删除主菜单li样式 */
+					$(this).removeClass("active");
+				}
+				/** 通过主菜单找对应的子菜单用10毫秒滑上隐藏出来 */
+				$(this).find(".sub-Menu").slideUp(10);
+			}
+		);
+		
+		
+		/** 限时抢购(3天) */
+		/* $("#down_time_span").downCount("2015-07-03 00:00:00"); */
+	});
+  
+    CloudZoom.quickStart();
+
+		/** 为+号绑定事件 */
+		$("#add").click(function(){
+			var buyNum = $("#buy_num");
+			/** 设置文本框值 */
+			buyNum.val(parseInt(buyNum.val()) + 1);
+		});
+		
+		/** 为-号绑定事件 */
+		$("#min").click(function(){
+			var buyNum = $("#buy_num");
+			/** 如果购买数量小于1直接返回 */
+			if (parseInt(buyNum.val()) == 1){
+				return;
+			}
+			/** 设置文本框值 */
+			buyNum.val(parseInt(buyNum.val()) - 1);
+		});
+		/** 为购买数量文本框绑定失去焦点事件 */
+		$("#buy_num").blur(function(){
+			var num = this.value;
+			/** 如果不是数字 */
+			if (isNaN(num)){
+				this.value = "1";
+			}else{
+				/** 如果是小数、负数、第一位数定不能为零 */
+				if (!/^[1-9]\d*$/.test(num)){
+					this.value = "1";
+				}
+			}
+		});
+		
+		
+		/** 获取所有的存放物品图片的li元素 */
+		var lis = $("#my_ul > li");
+		/** 为物品图片添加css */
+		lis.css("cursor", "pointer");
+		/** 定义显示的数量 */
+		var pageSize = 5;
+		/** 计算出总页数 */
+		var totalSize = Math.ceil(lis.length / pageSize);
+		/** 定义当前页码 */
+		var pageIndex = 1;
+
+		/** 为存放物品图片li元素绑定点击事件 */
+		lis.click(function(){
+			/** 设置上面大图为当前用户选中的图片 */
+			$("#curImg").attr("src", $(this).find("img").attr("src"));
+			/** 删除所有的class */
+			lis.removeClass();
+			/** 当前的添加class */
+			$(this).addClass("active");
+		});
+		
+		/** 为切换到下一组绑定事件 */
+		$(".next").click(function(){
+			/** 如果当前页码小于总页数 */
+			if (pageIndex < totalSize){
+				/** 删除所有的class */
+				lis.removeClass();
+				/** 将以前显示的隐藏 */
+				lis.slice((pageIndex - 1) * pageSize, pageIndex * pageSize).hide(500);
+				/** 计算出下一组开始索引 */
+				var index = pageIndex * pageSize;
+				/** 开启延迟的定时器 */
+				setTimeout(function(){
+					/** 当前的添加class */
+					$(lis[index]).addClass("active");
+					/** 设置上面大图为当前用户选中的图片 */
+					$("#curImg").attr("src", $(lis[index]).find("img").attr("src"));
+					/** 触发当前放大镜图片的点击事件 */
+					$(lis[index]).find("a[rel]").trigger("click");
+				},500);
+				/** 当前页数自加 */
+				pageIndex++;
+			}
+		});
+
+		/** 为切换到上一组图片绑定事件 */
+		$(".prev").click(function(){
+			if (pageIndex > 1){
+				/** 当前页数自减 */
+				pageIndex--;
+				/** 将以前隐藏的显示出来 */
+				lis.slice((pageIndex - 1) * pageSize, pageIndex * pageSize).show(500);
+				/** 删除class */
+				lis.removeClass();
+				/** 当前的添加class */
+				$(lis[(pageIndex - 1) * pageSize]).addClass("active");
+				/** 设置上面大图为当前用户选中的图片 */
+				$("#curImg").attr("src", $(lis[(pageIndex - 1) * pageSize])
+							.find("img").attr("src"));
+			    /** 触发当前放大镜图片的点击事件 */
+				$(lis[(pageIndex - 1) * pageSize]).find("a[rel]").trigger("click");
+			}
+		});
+
+		
+	
+	
+
+  $("#addGoodCar").click(function(){
+	  var buyNum=$("#buy_num").val();
+	  var gid=$("#gid").val();
+	  $.post("${cxt}/customer/buyCar/addToCar",{"buyNum":buyNum,"gid":gid},function(){
+		  $.post("${cxt}/customer/buyCar/showBuyNum",function(data){
+			  if ($("#userId").val()!=null&&isNaN($("#userId").val()))
+					 $("#count").text(data);
+					 else{
+						 $("#count").text(0);
+						 window.location.href="/JiKe/login.html";
+					 }
+		  });
+	  });
+  });
+  
+ 	/*  使用图片放大镜  */
+/*  	$('#jqzoom').jqzoom({
+		zoomType: 'standard', // 类型 'standard', 'drag', 'innerzoom', 'reverse'
+		lens:true, // 是否显示蒙版拖动框
+		preloadImages: false, // 是否预加载图片
+		alwaysOn:false, // 是否一进入就显示
+      title : false, // 是否显示标题
+      zoomWidth : 520, // 宽度
+		zoomHeight : 300 // 高度
+	});  */
+	
+</script>
+</html>

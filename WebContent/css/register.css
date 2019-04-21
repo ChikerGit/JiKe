@@ -1,0 +1,161 @@
+.search-logo strong {
+	line-height: 80px;
+	padding-left: 30px;
+}
+.option {
+	height: 40px;
+	line-height: 40px;
+	-webkit-box-shadow: 0 6px 11px -4px #ccc;
+	-moz-box-shadow: 0 6px 11px -4px #ccc;
+	box-shadow: 0 6px 11px -4px #ccc;
+}
+.option span {
+	position: relative;
+} 
+.option font {
+	right: -220px;
+	top: -14px;
+	display: block;
+	position: absolute;
+}
+.option font a {
+	margin-right: ;
+}
+.option strong {
+	margin: 0 50px;
+	top: 0;
+	left: 0;
+	position: relative;
+}
+.option strong.active i {
+	bottom: -7px;
+	left: 45%;
+	position: absolute;
+	display: inline-block;
+	border: 5px solid transparent;
+	border-bottom: 5px solid #cc0000;
+}
+.fr-re {
+	padding-top:30px;
+	width: 420px;
+	margin: 0 auto;
+}
+.fr-re span {
+	line-height: 32px;
+	vertical-align: top;
+	text-align: right;
+	display: inline-block;
+	width: 90px;
+	font-size: 14px;
+	color: #999999;
+}
+.fr-re p {
+	position: relative;
+	padding-bottom: 20px;
+}
+.fr-re p font {
+	right: -190px;
+	top: 8px;
+	color: red;
+	display: block;
+	position: absolute;
+}
+.fr-re p font strong {
+	display: none;
+}
+.fr-re .type label {
+	display: inline-block;
+	border: 1px solid #ccc;
+	height: 30px;
+}
+.fr-re .type label i {
+	margin: 2px 0;
+	display: inline-block;
+	width: 45px;
+	height: 24px;
+	border-right: 1px solid #ccc;
+	background: url('../images/ico.png') no-repeat;
+}
+.fr-re .type label input {
+	width: 260px;
+	padding-left: 10px;
+	line-height: 30px;
+	height: 30px;
+	vertical-align: top;
+	border: none 0;
+}
+.fr-re .type label i.user {
+	background-position: -137px -35px;
+}
+.fr-re .type label i.password {
+	background-position: -100px -35px;
+}
+.fr-re .type-1 label i {
+	border-left: 1px solid #ccc;
+	border-right: 0 none;
+	background-position: -170px 10px;
+}
+.fr-re  select {
+	display: inline-block;
+	border: 1px solid #ccc;
+	line-height: 30px;
+	height: 38px;
+	width: 156px;
+	margin-right: 6px;
+}
+.fr-re .p1 {
+
+}
+.fr-re .p1 label {
+	margin-right: 10px;
+	line-height: 32px;
+	border: 0 none;
+	vertical-align: top;
+}
+.fr-re .p1 input {
+	margin-right: 6px;
+	line-height: 32px;
+	vertical-align: middle;
+}
+.fr-re .p2 label {
+	display: inline-block;
+	line-height: 32px;
+}
+.fr-re .p2 input {
+	padding-left: 10px;
+	border: 1px solid #ccc;
+	line-height: 30px;
+	height: 30px;
+	display: inline-block;
+	width: 88px;
+	margin-right: 10px;
+}
+.fr-re .p3 label {
+	font-family: tahoma;
+}
+.fr-re .p3 label input {
+	vertical-align: middle;
+	margin-right: 10px;
+}
+.fr-re .p3 label em {
+	vertical-align: middle;
+}
+
+.fr-re .p3 label a {
+	vertical-align: middle; 
+}
+.fr-re .p4 label input {
+	width: 310px;
+}
+.fr-re input[type="submit"] {
+	width: 330px;
+	height: 32px;
+	background: #c40000;
+	border: none 0px;
+	color: white;
+	font-size: 14px;
+}
+
+.footer {
+	border-color: #ccc;
+}

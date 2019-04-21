@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.drq.mapper.GoodsMapper">
+   <select id="showGoodsList" resultMap="goodsMapper2">
+     select * from goods 
+     <where> 
+        <if test="time!=null">
+        grounding_date like concat("%",#{time},"%") or create_date like concat("%",#{time},"%")
+        </if>
+        <if test="userSelect!=null">
+        and (id like concat("%",#{userSelect},"%") or title like concat("%",#{userSelect},"%") or brand_name like concat("%",#{userSelect},"%") or price like concat("%",#{userSelect},"%") or favorable_price like concat("%",#{userSelect},"%") or storage like concat("%",#{userSelect},"%") or description like concat("%",#{userSelect},"%"))
+        </if>
+      </where>
+     limit #{page.startIndex},#{page.pageSize}
+   </select>
+   
+   <select id="getGoodsRecordCount" resultType="Integer">
+     select count(1) from goods
+     <where> 
+        <if test="time!=null">
+        grounding_date like concat("%",#{time},"%") or create_date like concat("%",#{time},"%")
+        </if>
+        <if test="userSelect!=null">
+        and (id like concat("%",#{userSelect},"%") or title like concat("%",#{userSelect},"%") or brand_name like concat("%",#{userSelect},"%") or price like concat("%",#{userSelect},"%") or favorable_price like concat("%",#{userSelect},"%") or storage like concat("%",#{userSelect},"%") or description like concat("%",#{userSelect},"%"))
+        </if>
+      </where>
+   </select>
+   
+   <select id="getGoodsById" resultMap="goodsMapper2">
+     select * from goods where id=#{id}
+   </select>
+   
+   <select id="getGoodsTitile" resultMap="goodsMapper1">
+     select * from goods where type_code=#{minTypeCode}
+   </select>
+   
+   <select id="getGoodsListByMinCode" resultMap="goodsMapper1">
+     select * from goods where type_code like concat(#{minCode},"%") limit #{page.startIndex},#{page.pageSize}
+   </select>
+   
+   <select id="getGoodsListCount" resultType="Integer">
+     select count(1) from goods where type_code like concat(#{maxCode},"%")
+   </select>
+   
+   <select id="getGoodsListByIds" resultMap="goodsMapper2">
+     select * from goods where id in
+       <foreach collection="list" item="ids" open="(" separator="," close=")">
+         #{ids}
+       </foreach>
+   </select>
+   
+   <select id="getGoodsListByGids" resultMap="goodsMapper2">
+     select * from goods where id in
+       <foreach collection="array" item="ids" open="(" separator="," close=")">
+         #{ids}
+       </foreach>
+   </select>
+   
+   <insert id="addGoods">
+     insert into goods(title,brand_name,price,favorable_price,grounding_date,storage,image,description,type_code,create_date) 
+       values(#{goods.title},#{goods.brandName},#{goods.price},#{goods.favorablePrice},#{goods.groundingDate},#{goods.storage},#{goods.image},#{goods.description},#{goods.goodsType.code},#{goods.createDate})
+   </insert>
+   
+   <update id="upDataGoods">
+     update goods set title=#{goods.title},brand_name=#{goods.brandName},price=#{goods.price},favorable_price=#{goods.favorablePrice},grounding_date=#{goods.groundingDate},storage=#{goods.storage},image=#{goods.image},description=#{goods.description},type_code=#{goods.goodsType.code} where id=#{goods.id}
+   </update>
+   
+   <delete id="deleteGoods">
+     delete from goods where id in
+       <foreach collection="array" item="id" open="(" separator="," close=")">
+         #{id}
+       </foreach>
+   </delete>
+   
+   <resultMap type="Goods" id="goodsMapper1">
+     <result property="brandName" column="brand_name"/>
+     <result property="favorablePrice" column="favorable_price"/>
+     <result property="groundingDate" column="grounding_date"/>
+     <result property="createDate" column="create_date"/>
+   </resultMap>
+   
+   <resultMap type="Goods" id="goodsMapper2" extends="goodsMapper1">
+     <association property="goodsType" column="type_code" 
+         select="com.drq.mapper.GoodsTypeMapper.getGoodsTypeBycode"/>
+   </resultMap>
+</mapper>

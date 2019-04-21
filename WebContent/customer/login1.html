@@ -1,0 +1,191 @@
+<#assign cxt=request.contextPath>
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>极客电子商务平台-登录</title>
+	<link rel="stylesheet" href="css/base.css"/>
+	<link rel="stylesheet" href="css/login.css"/>
+	<link rel="stylesheet" href="css/home.css"/>
+	<!-- 引入jQuery框架 -->
+	<script type="text/javascript" src="js/jquery-1.11.0.js"></script>
+	<script type="text/javascript" src="js/jquery-migrate-1.2.1.js"></script>
+	<script type="text/javascript">
+		/** 监听文档加载完事件 */
+		$(function(){
+
+			/** 为验证码看不清楚绑定点击事件 */
+			$("a[class='transform']").click(function(){
+				/** 生成1-4之间的随机数(包含1与4) */
+				var cursor = Math.ceil(Math.random() * 4);
+				/** 重新设置验证码图片的src属性，让它引用一张新的图片 */
+				$("#vimg").attr("src", "images/" + cursor + ".jpg");
+			});
+
+			/** 为表单绑定onsubmit提交事件 */
+			$("form[class='fr1']").submit(function(){
+				/** 做表单输入校验 */
+				var userId = $("#userId");
+				var pwd = $("#pwd");
+				var code = $("#code");
+				var tip = "";
+				if ($.trim(userId.val()) == ""){
+					tip = "账号不能为空！";
+					userId.focus();// 调用文本框获取焦点方法
+				}else if (!/^\w{5,20}$/.test($.trim(userId.val()))){
+					tip = "账号格式不正确！";
+					userId.focus();// 调用文本框获取焦点方法
+				}else if ($.trim(pwd.val()) == ""){
+					tip = "密码不能为空！";
+					pwd.focus();// 调用文本框获取焦点方法
+				}else if (!/^\w{6,20}$/.test($.trim(pwd.val()))){
+					tip = "密码格式不正确！";
+					pwd.focus();// 调用文本框获取焦点方法
+				}else if ($.trim(code.val()) == ""){
+					tip = "验证码不能为空！";
+					code.focus();// 调用文本框获取焦点方法
+				}else if (!/^[a-zA-Z0-9]{4}$/.test($.trim(code.val()))){
+					tip = "验证码格式不正确！";
+					code.focus();// 调用文本框获取焦点方法
+				} 
+				/** 判断表单是否通过校验 */
+				if (tip == ""){
+					return true;
+				}else{
+					alert(tip);
+					return false;
+				}
+			});
+		});
+	</script>
+</head>
+<body>
+	<div class="header-1">
+		<div class="container">
+			<a href="${cxt}/customer/index" class="lo1"><img src="images/logo.png"></a>
+			<strong class="f24 normal c-333333">欢迎登录</strong>
+		</div>
+	</div>	
+	<div class="content">
+		<div class="container clear">
+			<!-- 登录表单 -->
+			<form class="fr1" action="" method="post">
+				<div class="left ad1">
+					<img src="images/ad/1.jpg" alt="">
+				</div>
+				<div class="right login-dialog">
+					<p class="tabs-option">
+						<span>快速登录</span>
+						<a href="register.html"><span>注册</span></a>
+					</p>
+					<p class="p1">
+						<i></i><span class="f18">会员</span>
+					</p>
+					<p class="p2">
+						<label class="user">
+							<input type="text" id="userId" name="userId" 
+								placeholder="邮箱/用户名/已验证手机"/>
+						</label>
+					</p>
+					<p  class="p3">
+						<label class="password">
+							<input type="password" id="passWord" name="pwd" placeholder="密码"/>
+						</label>
+					</p>
+					<p class="clear p4">
+						<label class="left">
+							<input type="checkbox"/ id="autoLogin"><em class="c-999999">记住密码</em>
+						</label>
+						<a class="right" href="#">忘记密码</a>
+					</p>
+					<p class="p5">
+						<label class="f-999999">验证码：<input type="text" id="codeInput" name="code"/></label>
+						<img src="${cxt}/customer/autoCode" id="autoCode" alt="验证码"/><a id="kanbuq" href="javascript: void(0)" class="transform"></a>
+					</p>
+					<p style="color: red" id="tip">${tip!""}</p>
+					<p class="p6">
+						<input type="button" value="登录" id="loginBtn"><input type="reset"> 
+					</p>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- content -->
+	<div class="footer">
+		 <p class="text-center">
+		 	<span>
+		 		<a href="about-us.html">关于我们</a><font>|</font>
+		 		<a href="about-us.html">商务合作</a><font>|</font>
+		 		<a href="about-us.html">网站地图</a><font>|</font>
+		 		<a href="about-us.html">友情链接</a><font>|</font>
+		 		<a href="about-us.html">法律声明</a>
+		 	</span>
+		 </p>
+		 <p class="text-center">
+		 	<!-- <span>
+		 		
+		 	</span> -->
+		 </p>
+	</div>
+</body>
+<script type="text/javascript">
+
+var acookie=document.cookie.split("; ");
+var user=getck("username");
+var pwd=getck("pwd");
+$("#userId").val(user);
+$("#passWord").val(pwd);
+function getck(user){
+	//获取单个cookies
+	for(var i=0;i<acookie.length;i++){
+		var arr=acookie[i].split("=");
+		if(user==arr[0]){
+			$("#autoLogin").attr("checked","checked");
+			return arr[1];
+		}
+	}
+}
+
+//换一张验证码
+$("#kanbuq").click(function(){
+		var random=Math.random();
+		$("#autoCode").attr("src","${cxt}/customer/autoCode?change?"+random)
+})
+
+$("#loginBtn").click(function(){
+	   
+	   if($("#userId").val()==""){
+		   $("#tip").text("用户名不能为空");
+		   $("#userId").focus();
+	   }else if($("#passWord").val()==""){
+		   $("#tip").text("密码不能为空");
+		   $("#passWord").focus();
+	   }else if($("#codeInput").val()==""){
+		   $("#tip").text("验证码不能为空");
+	   }else{
+		   var userId=$("#userId").val();
+		   var passWord=$("#passWord").val();
+		   var codeInput=$("#codeInput").val();
+		   var autoLogin=$("#autoLogin:checked")
+		    if(autoLogin.length==1){
+			    $("#autoLogin").val("1")
+		    }else{
+		    	$("#autoLogin").val("0")
+		    }
+		   var online=$("#autoLogin").val();
+		   $.post("${cxt}/admin/loginToHome",{"userId":userId,"passWord":passWord,"codeInput":codeInput,"online":online},function(data){
+			   if(data.flag!="codeFail"){
+				   if(data.flag=="success"){
+					   window.location.href="${cxt}/customer/index"
+				   }else if(data.flag=="fail"){
+					   $("#tip").text(data.tip)
+				   }
+			   }else{
+				   $("#tip").text(data.tip)
+			   }
+			   
+		   })
+	   }
+   })
+</script>
+</html>

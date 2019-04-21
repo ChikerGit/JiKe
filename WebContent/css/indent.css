@@ -1,0 +1,145 @@
+/********************************************************************************/
+/********************************************************************************/
+/********************************************************************************/
+/********************************************************************************/
+.content {
+	margin-top: 20px;
+}
+.content table {
+	text-align: center;
+	width: 100%;
+	border: 1px solid #ccc;
+	border-collapse: collapse;
+}
+.content thead {
+	background: #eeeeee;
+}
+.content thead tr {
+	line-height: 50px;
+	border: 1px solid #ccc;
+}
+.content th {
+	color: #c40000;
+}
+.content th.h1 {
+	width: 80px;
+}
+.content th.h2 {
+	width: 120px;
+}
+.content th.h3 {
+	width: 282px;
+}
+.content label {
+	font-family: tahoma;
+}
+.content label input {
+	margin-right: 6px;
+	vertical-align: middle;
+}
+.content label em {
+	color: #c40000;
+	vertical-align: middle;
+}
+.content tbody {
+	
+}
+.content tbody tr {
+	border: 1px solid #ccc;
+	line-height: 78px
+}
+
+.content tbody td {
+	
+}
+.content tbody td a {
+	color: #333333;
+}
+.content tbody td p {
+	line-height: 20px;
+}
+.content tbody td img {
+	vertical-align: middle;
+	width: 80px;
+	height: 60px;
+}
+.content tfoot tr {
+	line-height: 76px;
+} 
+.content tfoot td label {
+	padding-left: 10px;
+}
+.content tfoot td font {
+	margin-top: 18px;
+	display: inline-block;
+	line-height: 40px;
+	background: #c40000;
+	font-size: 14px;
+	color: white;
+	padding: 0 20px;
+}
+.content tfoot td span {
+	margin-right: 20px;
+	margin-top: 18px;
+	display: inline-block;
+	line-height: 36px;
+	background: ;
+	font-size: 14px;
+	color: #c40000;
+	padding: 0 20px;
+	border: 2px solid #c40000;
+}
+
+p.p1{
+	padding-top: 10px;
+}
+p.p1 label {
+	padding-right: 40px;
+}
+p.p1 label em {
+	color: #666666;
+	font-size: 14px;
+}
+p.p2 {
+	padding-top: 40px;
+}
+p.p2 input {
+	height: 40px;
+	background: #c40000;
+	border: 0 none;
+	padding: 0 60px;
+	margin-right: 20px;
+}
+.footer {
+	border-color: #ccc;
+}
+.td_{
+	position:relative;
+}
+._jbtn{
+	width:15px;
+	height:17px;
+	text-align:center;
+	border:1px solid #a9a9a9;
+	display:block;
+	line-height:17px;
+	 position:absolute;
+	left:103px;
+	top:30px; 
+}
+.jbtn_{
+	width:15px;
+	height:17px;
+	text-align:center;
+	border:1px solid #a9a9a9;
+	display:block;
+	line-height:17px;
+	 position:absolute;
+	left:142px;
+	top:30px; 
+}
+.td_ input{
+	top:30px; 
+	left:119px;
+	position:absolute;
+}

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+<configuration>
+ 
+  <!-- 引入外部数据源 resource：资源路径 -->
+  <properties resource="jdbc.properties"></properties>
+  <typeAliases>
+    <package name="com.drq.dto"/>
+  </typeAliases>
+
+  <!-- 配置数据源 -->
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+    <!-- 以下根据数据库的不同作不同配置-->
+        <property name="driver" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+      </dataSource>
+    </environment>
+    <!-- 可配置多个数据源-->
+  </environments>
+    
+  <!-- 接口映射 -->
+  <mappers>
+    <mapper class="com.drq.mapper.UserMapper"/>
+    <mapper class="com.drq.mapper.GoodsTypeMapper"/>
+    <mapper class="com.drq.mapper.GoodsMapper"/>
+    <mapper class="com.drq.mapper.OrderMapper"/>
+    <mapper class="com.drq.mapper.PicetureMapper"/>
+    <mapper class="com.drq.mapper.TimeGoodsMapper"/>
+    <mapper class="com.drq.mapper.OrderItemMapper"/>
+    <mapper class="com.drq.mapper.BrowseRecordsMapper"/>
+    <mapper class="com.drq.mapper.GoodsDetailMapper"/> 
+  </mappers>  
+</configuration>

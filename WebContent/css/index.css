@@ -1,0 +1,165 @@
+/********************************************************************************************/
+/********************************************************************************************/
+/********************************************************************************************/
+/********************************************************************************************/
+/*********************************************index******************************************/
+.header {
+
+}
+.banner .container {
+	position: relative;
+
+}
+.banner .banner-wrap {
+	 /* left: 0px; */
+	top: 0px ;
+	margin-top:0px;
+	position: relative;
+	/* height: 548px; */
+	height: 548px;
+	width: 100%;
+	overflow: hidden;
+}
+.banner .banner-wrap ul li {
+	float: left;
+	
+}
+.banner .banner-wrap ul {
+	width: 1920px;
+}
+.banner .prev,
+.banner .next {
+	position: absolute;
+	display: inline-block;
+	background: #cccccc url('../images/ico.png') no-repeat 14px -27px;
+	width: 50px;
+	height: 50px;
+	top: -330px;
+	right: 0;
+}
+.banner .prev:active {
+}
+
+.banner .prev {
+	left: 0;
+	background-position: -32px -27px;
+}
+.banner ol {
+	position: absolute;
+	left: 45%;
+	top: -26px;
+}
+.banner ol li {
+	margin: 0 5px;
+	float: left;
+	border-radius: 50%;
+	border: 2px solid #c40000;
+	height: 14px;
+	width: 14px;
+	cursor: pointer;
+}
+.banner ol li.active {
+	background: #c40000;
+} 
+
+
+.content {
+	margin-top: 10px;
+}
+.section {
+	padding-right: 20px;
+	padding-bottom: 20px;
+	background: #000000;
+}
+.section .tips {
+	background: #000000;
+	padding: 12px 0 12px 50px;
+}
+.section .tips span {
+	
+}
+.section .tips font {
+	vertical-align: bottom;
+	line-height: 33px;
+	display: inline-block;
+	height: 33px;
+	font-size: 18px;
+	font-family: arial;
+	background: #fff;
+	color: #333333;
+	padding: 0 6px;
+	margin: 0 3px;
+}
+.section .tips strong {
+	display: inline-block;
+	line-height: 33px;
+	vertical-align: bottom;
+}
+
+.section .tips .s1 {
+	padding-left: 100px;
+} 
+.section .tips .b-tgl {
+	margin-top: 10px;
+	margin-right: 10px;
+	background: #c40000 url('../images/ico.png') no-repeat -38px -27px;
+	padding-right: 16px;
+}
+.section .tips .b-tgl em {
+	display: inline-block;
+	line-height: 16px;
+	color: #fff;
+	background: #c40000;
+}
+.pr1 .bg-img {
+	width: 260px;
+	height: 330px;
+}
+.pr1 a {
+	display: inline-block;
+}
+.pr1 ul {
+	width: 900px;
+	margin: 6px 8px 4px;
+	border: 1px solid #ebadad;
+	border-left: 0 none;
+	border-bottom: 0 none;
+}
+.pr1 ul li {
+	border-left: 1px solid #ebadad;
+	border-bottom: 1px solid #ebadad;
+	float: left;
+
+}
+.pr1 .right .l1{ 
+	width: 211px;
+	height: 160px;
+}
+.pr1 ul li img {
+	margin-bottom: -5px;
+}
+.pr1 ul li span {
+	text-align: center;
+	width: 72px;
+	padding: 20px 8px 10px;
+}
+.pr1 ul li span p {
+	margin-top: 10px;
+}
+/*--------------新增----------------*/
+.qg_{
+	position:relative;
+}
+.qg_ div{
+	height:30px;
+	width:211px;
+	position:absolute;
+	left:0;
+	bottom:0;
+	background:url(../images/qgbg.png) repeat-x;
+	text-align:center;
+	padding-top:10px;
+	color:#fff;
+	font-size:16px;
+	
+}

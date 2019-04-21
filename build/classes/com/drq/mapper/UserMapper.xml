@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.drq.mapper.UserMapper">
+   <select id="userLogin" resultMap="userMapper">
+     select * from user where user_id=#{userId} and pass_word=#{passWord}
+   </select>
+   <select id="checkIfUserExit" resultType="Integer">
+     SELECT id FROM user WHERE user_id =#{userId}
+   </select>
+   
+   <select id="showUserList" resultMap="userMapper">
+      select * from user 
+      <where> 
+        <if test="time!=null">
+          birthday like concat("%",#{time},"%") or create_date like concat("%",#{time},"%")
+        </if>
+        <if test="userSelect!=null">
+         and (id like concat("%",#{userSelect},"%") or user_id like concat("%",#{userSelect},"%") or name like concat("%",#{userSelect},"%") or email like concat("%",#{userSelect},"%") or phone like concat("%",#{userSelect},"%") or address like concat("%",#{userSelect},"%")) 
+        </if>
+      </where>
+       limit #{page.startIndex},#{page.pageSize}
+   </select>
+   
+   <select id="compareNameByAdd" resultType="java.lang.Integer">
+      select count(1) from user where user_id=#{userId}
+   </select>
+   
+   <insert id="addAdmin">
+      insert into user(USER_ID,PASS_WORD,NAME,SEX,BIRTHDAY,EMAIL,PHONE,ADDRESS,ROLE,CREATE_DATE) values(#{userId},#{passWord},#{name},#{sex},#{birthday},#{email},#{phone},#{address},#{role},#{createDate})
+   </insert>
+   
+   <select id="toUpDateUser" resultMap="userMapper">
+      select * from user where id=#{id}
+   </select>
+   
+   <select id="getRecordCountByPage" resultType="java.lang.Integer">
+      select count(1) from user
+      <where>
+        <if test="time!=null">
+          birthday like concat("%",#{time},"%") or create_date like concat("%",#{time},"%")
+        </if>
+        <if test="userSelect!=null">
+        and (id like concat("%",#{userSelect},"%") or user_id like concat("%",#{userSelect},"%") or name like concat("%",#{userSelect},"%") or email like concat("%",#{userSelect},"%") or phone like concat("%",#{userSelect},"%") or address like concat("%",#{userSelect},"%")) 
+        </if>
+      </where>
+   </select>
+   
+   <update id="upDateUser">
+      update user
+      <set>
+         <if test="name!=null and name!=''">
+           name=#{name},
+         </if>
+         <if test="sex!=null">
+           sex=#{sex},
+         </if>
+         <if test="birthday!=null">
+           birthday=#{birthday},
+         </if>
+         <if test="email!=null and email!=''">
+           email=#{email},
+         </if>
+         <if test="phone!=null and phone!=''">
+           phone=#{phone},
+         </if>
+         <if test="address!=null and address!=''">
+           address=#{address},
+         </if>
+         <if test="role!=null and role!=''">
+           role=#{role}
+         </if>
+      </set>
+      where user_Id=#{userId}
+   </update>
+   
+   <update id="upDateCustomer">
+      update user
+      <set>
+         <if test="name!=null and name!=''">
+           name=#{name},
+         </if>
+         <if test="sex!=null">
+           sex=#{sex},
+         </if>
+         <if test="birthday!=null">
+           birthday=#{birthday},
+         </if>
+         <if test="email!=null and email!=''">
+           email=#{email},
+         </if>
+         <if test="phone!=null and phone!=''">
+           phone=#{phone},
+         </if>
+         <if test="address!=null and address!=''">
+           address=#{address},
+         </if>
+         <if test="role!=null and role!=''">
+           role=#{role}
+         </if>
+      </set>
+      where user_Id=#{userId}
+   </update>
+   
+   <delete id="deleteUserById">
+       delete from user where id in
+       <foreach collection="array" item="id" open="(" separator="," close=")">
+           #{id}
+       </foreach>
+   </delete>
+   
+   <resultMap type="User" id="userMapper">
+     <result property="userId" column="user_id"/>
+     <result property="passWord" column="pass_word"/>
+     <result property="createDate" column="create_date"/>
+     <result property="activeStatus" column="active_status"/>
+     <result property="activeCode" column="active_code"/>
+   </resultMap>
+</mapper>

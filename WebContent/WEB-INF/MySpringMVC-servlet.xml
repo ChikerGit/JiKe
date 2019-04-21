@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
+    
+    <!-- 启动注解 -->
+    <mvc:annotation-driven/>
+    <!-- 放行静态资源 -->
+    <mvc:default-servlet-handler/>
+    <!-- 包扫描 -->
+    <context:component-scan base-package="com.drq.controller" />
+    <!-- 配置URL路径重定向到控制器 ,路径写法为controller下的子路径-->
+    <mvc:view-controller path="/" view-name="redirect:/customer/index"/>
+    <mvc:view-controller path="/admin" view-name="redirect:/admin/toLogin"/>
+    
+    <!-- 配置拦截器 -->
+  <bean id="adminInterceptor" class="com.drq.Interceptor.myInterceptor"></bean>
+    <bean id="customerInterceptor" class="com.drq.Interceptor.CustomerInterceptor"></bean>
+    <mvc:interceptors>
+       <mvc:interceptor>
+          <mvc:mapping path="/admin/*/*"/>
+          <mvc:mapping path="/admin/*"/>
+          <mvc:exclude-mapping path="/admin/toLogin"/>
+          <mvc:exclude-mapping path="/admin/loginToHome"/>
+          <ref bean="adminInterceptor"/>
+       </mvc:interceptor>
+       <mvc:interceptor>
+          <mvc:mapping path="/customer/buyCar/*"/>
+          <ref bean="customerInterceptor"/>
+       </mvc:interceptor>
+    </mvc:interceptors>
+    
+    
+    <!-- 引入freemarker视图模板让springMVC接管freemarker ,需要引入SpringMVC支持freemarker的jar包-->
+    <bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <!-- 指定模板路径 
+				templateLoaderPath:指定freemarker的模板路径，此处只能指定单个
+				templateLoaderPaths:指定freemarker的多个模板路径
+		-->
+		<!-- 配置springMVC返回视图的默认路径 ,即配置路径拼接返回视图路径，在给freemarker去找视图-->
+		<property name="templateLoaderPaths" value="/customer/,/WEB-INF/"></property>
+    </bean>
+    
+    <!-- 配置freemarker视图解析器替换springMVC视图解析器 -->
+    <bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+       <!-- 配置后缀 -->
+       <property name="suffix" value=".html"></property>
+       <!-- 配置输出freemarker的文本类型和编码方式 -->
+       <property name="contentType" value="text/html;charset=UTF-8"></property>
+       <!-- 配置freemarker的域对象 -->
+       <property name="requestContextAttribute" value="request"></property>
+       
+    </bean>
+    
+
+    <!-- 对文件上传下载的支持 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- maxUploadSize:默认支持的上传大小   单位:字节 -->
+		<property name="maxUploadSize"  value="2097152"></property> 
+	</bean>
+     
+</beans>

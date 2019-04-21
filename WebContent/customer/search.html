@@ -1,0 +1,29 @@
+<!-- search-logo 搜索部分 -->
+		<div class="search-logo">	
+			<div  class="clear container">
+				<!-- <a href="${cxt}/customer/index" class="left lo1"><img src="${cxt}/images/logo2.png" alt=""></a> -->
+				<form class="left fr1" action="${cxt}/customer/goodsList/goodsSelect" methed="post">
+					<p>
+						<input placeholder="" class="f14 c-999999" type="text" name="userSelect">
+						<input type="submit" class="f14 white" value="搜索">
+					</p>
+				
+				</form>
+				<span class="right">
+					<a href="${cxt}/customer/buyCar/showBuyCar" class="shopingcart"></a><font id="count"></font>
+					<a href="${cxt}/customer/buyCar/showBuyCar">购物车</a>
+				</span>
+			</div>
+			<!-- search-logo end-->
+		</div>
+			<script type="text/javascript">
+ $(function(){
+	 
+	  $.post("${cxt}/customer/buyCar/showBuyNum",function(data){
+		  if ($("#userId").val()!=null&&isNaN($("#userId").val()))
+			 $("#count").text(data);
+			 else
+				 $("#count").text(0);
+	  }) 
+ })
+</script>

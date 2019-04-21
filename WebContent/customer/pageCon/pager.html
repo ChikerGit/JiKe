@@ -1,0 +1,112 @@
+﻿<#-- 自定义的分页指令
+前置条件：需要导入jQuery.js
+属性说明：
+   pageIndex   当前页号(int类型)
+   pageSize    每页显示数量(int类型)
+   recordCount 总条数(int类型)
+   toURL       点击分页跳转URL(String类型)
+ 调用方式：
+   pageModel.recordCount??:取出域对象中的pageModel再去获取有多少页，然后判断是否为空
+   #import "pageCon/pager.html" as page:引入分页模型
+   @page.pager:赋值
+  <#if pageModel.recordCount??>
+    <#import "pageCon/pager.html" as page>
+    <@page.pager pageIndex=pageModel.pageIndex pageSize=pageModel.pageSize recordCount=pageModel.recordCount toURL="${cxt}/admin/showUserList"/>
+  </#if>
+-->
+
+<#macro pager pageIndex pageSize recordCount toURL> 
+<#assign cxt=request.contextPath> 
+  <#-- 定义局部变量pageCount保存总页数 -->
+  <#assign pageCount=((recordCount + pageSize - 1) / pageSize)?int>  
+  <#if recordCount==0><#return/></#if>
+	<#-- 输出分页样式 -->
+	<style type="text/css">
+		.pagination {padding: 5px;text-align:center;font-size:12px;}
+		.pagination a, .pagination a:link, .pagination a:visited {padding:2px 5px;margin:2px;border:1px solid #aaaadd;text-decoration:none;color:#006699;}
+		.pagination a:hover, .pagination a:active {border: 1px solid #ff0000;color: #000;text-decoration: none;}
+		.pagination span.current {padding: 2px 5px;margin: 2px;border: 1px solid #ff0000;font-weight: bold;background-color: #ff0000;color: #FFF;}
+		.pagination span.disabled {padding: 2px 5px;margin: 2px;border: 1px solid #eee; color: #ddd;}
+	</style>
+	<#-- 控制JS代码 -->
+	<script type="text/javascript">
+	  function toPage(index){
+	    if(index > ${pageCount}){
+	    	index = ${pageCount};
+	    }
+	    if(index < 1){
+	    	index = 1;
+	    }
+	    //获取当前页码
+	    $("#pageIndex").val(index);
+	    //设置表单请求的URL地址
+	    $("#pagerForm").action="${toURL}";
+	    //表单提交
+	    $("#pagerForm").submit();
+	  }
+	  
+	 function recordCountBtn(){
+	    toPage(0);
+	 }
+	</script>
+<#-- 页号越界处理 -->
+<#if (pageIndex > pageCount)>
+    <#assign pageIndex=pageCount>
+</#if>
+<#if (pageIndex < 1)>
+    <#assign pageIndex=1>
+</#if>
+<#-- 输出分页表单-->
+<div class="pagination">
+<form id="pagerForm" method="POST">
+<input type="hidden" id="pageIndex" name="pageIndex" value="${pageIndex}"/>
+<#-- 通过分页模型带参数到控制器-->
+
+
+
+<#-- 上一页处理 -->
+<#if (pageIndex == 1)>
+<span class="disabled">&laquo;&nbsp;上一页</span>
+<#else>
+<a href="javascript:void(0);" onclick="toPage(${pageIndex - 1})">&laquo;&nbsp;上一页</a>
+</#if>
+<#-- 如果前面页数过多,显示... -->
+<#assign start=1>
+<#if (pageIndex > 4)>
+	<#assign start=(pageIndex - 1)>
+	<a href="javascript:void(0);" onclick="toPage(1)">1</a>
+	<a href="javascript:void(0);" onclick="toPage(2)">2</a>&hellip;
+</#if>
+<#-- 显示当前页号和它附近的页号 -->
+<#assign end=(pageIndex + 1)>
+<#if (end > pageCount)>
+	<#assign end=pageCount>
+</#if>
+<#list start..end as i>
+<#if (pageIndex == i)>
+	<span class="current">${i}</span>
+<#else>
+ 	<a href="javascript:void(0);" onclick="toPage(${i})">${i}</a>      
+</#if>
+</#list>
+<#-- 如果后面页数过多,显示... -->
+<#if (end < pageCount - 2)>
+&hellip;
+</#if>
+<#if (end < pageCount - 1)>
+	<a href="javascript:void(0);" onclick="toPage(${pageCount - 1})">${pageCount-1}</a>
+</#if>
+<#if (end < pageCount)>
+	<a href="javascript:void(0);" onclick="toPage(${pageCount})">${pageCount}</a>
+</#if>
+<#-- 下一页处理 -->
+<#if (pageIndex == pageCount)>
+	<span class="disabled">下一页&nbsp;&raquo;</span>
+<#else>
+	<a href="javascript:void(0);" onclick="toPage(${pageIndex + 1})">下一页&nbsp;&raquo;</a>
+</#if>
+共${pageModel.recordCount}条记录,分 ${((pageModel.recordCount+pageModel.pageSize -1)/pageModel.pageSize)?int} 页
+
+</form>
+</div> 
+</#macro>  
